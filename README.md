@@ -140,4 +140,5 @@ The configuration file differs depending on the deployment method:
 ## Tuning Factory
 - [RL-Factory](https://github.com/Simple-Efficient/RL-Factory)
 - [Art](https://art.openpipe.ai/getting-started/about)
+    - Support mixed calling of mcp servers and tools, by transforming mcp calling into openai function calling format.
 - [Verl](https://github.com/volcengine/verl)
