@@ -1,0 +1,2397 @@
+[
+  {
+    "server_name": "weather",
+    "server_summary": "Error generating summary for weather",
+    "server_description": "A Model Context Protocol (MCP) server that provides weather data using the free Open-Meteo API. No API key required!",
+    "description_embedding": -0.02319771610200405,
+    "summary_embedding": 0.0019450519466772676,
+    "tools": [
+      {
+        "name": "get_weather",
+        "description": "\n    Get current weather and forecast for a specific location.\n\n    Args:\n        latitude: Latitude of the location\n        longitude: Longitude of the location\n        location_name: Optional name of the location for display\n        temperature_unit: Temperature unit (celsius or fahrenheit)\n        wind_speed_unit: Wind speed unit (kmh, ms, mph, kn)\n        precipitation_unit: Precipitation unit (mm or inch)\n\n    Returns:\n        Dictionary containing current weather and forecast data\n    ",
+        "description_embedding": -0.013697173446416855,
+        "parameter": {
+          "latitude": "(number) ",
+          "longitude": "(number) ",
+          "location_name": "(Optional, any) ",
+          "temperature_unit": "(Optional, string) ",
+          "wind_speed_unit": "(Optional, string) ",
+          "precipitation_unit": "(Optional, string) "
+        }
+      },
+      {
+        "name": "get_weather_by_city",
+        "description": "\n    Get weather for a city by name using geocoding.\n\n    Args:\n        city: Name of the city\n        country_code: Optional 2-letter country code (e.g., \"US\", \"GB\")\n        temperature_unit: Temperature unit (celsius or fahrenheit)\n        wind_speed_unit: Wind speed unit (kmh, ms, mph, kn)\n        precipitation_unit: Precipitation unit (mm or inch)\n\n    Returns:\n        Dictionary containing current weather and forecast data\n    ",
+        "description_embedding": -0.020332854241132736,
+        "parameter": {
+          "city": "(string) ",
+          "country_code": "(Optional, any) ",
+          "temperature_unit": "(Optional, string) ",
+          "wind_speed_unit": "(Optional, string) ",
+          "precipitation_unit": "(Optional, string) "
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "text-editor",
+    "server_summary": "Error generating summary for text-editor",
+    "server_description": "A Model Context Protocol (MCP) server that provides line-oriented text file editing capabilities through a standardized API. Optimized for LLM tools with efficient partial file access to minimize token usage.",
+    "description_embedding": -0.025884881615638733,
+    "summary_embedding": 0.02483086660504341,
+    "tools": [
+      {
+        "name": "get_text_file_contents",
+        "description": "Read text file contents from multiple files and line ranges. Returns file contents with hashes for concurrency control and line numbers for reference. The hashes are used to detect conflicts when editing the files. File paths must be absolute.",
+        "description_embedding": -0.016932034865021706,
+        "parameter": {
+          "files": "(array) List of files and their line ranges to read",
+          "encoding": "(Optional, string) Text encoding (default: 'utf-8')"
+        }
+      },
+      {
+        "name": "edit_text_file_contents",
+        "description": "A line editor that supports editing text file contents by specifying line ranges and content. It handles multiple patches in a single operation with hash-based conflict detection. File paths must be absolute. IMPORTANT: (1) Before using this tool, you must first get the file's current hash and range hashes and line numbers using get_text_file_contents. (2) To avoid line number shifts affecting your patches, use get_text_file_contents to read the SAME ranges you plan to edit before making changes. different line numbers have different rangehashes.(3) Patches must be specified from bottom to top to handle line number shifts correctly, as edits to lower lines don't affect the line numbers of higher lines. (4) To append content to a file, first get the total number of lines with get_text_file_contents, then specify a patch with line_start = total_lines + 1 and line_end = total_lines. This indicates an append operation and range_hash is not required. Similarly, range_hash is not required for new file creation.",
+        "description_embedding": 0.003434116253629327,
+        "parameter": {
+          "files": "(array) ",
+          "encoding": "(Optional, string) Text encoding (default: 'utf-8')"
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "calculator",
+    "server_summary": "Error generating summary for calculator",
+    "server_description": "A Model Context Protocol server for calculating. This server enables LLMs to use calculator for precise numerical calculations.",
+    "description_embedding": -0.04431556910276413,
+    "summary_embedding": -0.007768323644995689,
+    "tools": [
+      {
+        "name": "calculate",
+        "description": "Calculates/evaluates the given expression.",
+        "description_embedding": -0.023639364168047905,
+        "parameter": {
+          "expression": "(string) "
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "sitemap",
+    "server_summary": "Error generating summary for sitemap",
+    "server_description": "Discover website architecture and analyze site structure by fetching, parsing, and visualizing sitemaps from any URL. Uncover hidden pages and extract organized hierarchies without manual exploration.",
+    "description_embedding": -0.008333222940564156,
+    "summary_embedding": 0.023726457729935646,
+    "tools": [
+      {
+        "name": "get_sitemap_tree",
+        "description": "Fetch and parse the sitemap tree from a website URL",
+        "description_embedding": 0.0005325408419594169,
+        "parameter": {
+          "url": "(string) The URL of the website homepage (e.g., https://example.com)",
+          "include_pages": "(Optional, boolean) Whether to include page details in the response"
+        }
+      },
+      {
+        "name": "get_sitemap_pages",
+        "description": "Get all pages from a website's sitemap with optional limits and filtering options. Supports cursor-based pagination.",
+        "description_embedding": 0.010841014795005322,
+        "parameter": {
+          "url": "(string) The URL of the website homepage (e.g., https://example.com)",
+          "limit": "(Optional, integer) Maximum number of pages to return per page (0 for default of 100)",
+          "include_metadata": "(Optional, boolean) Whether to include additional page metadata (priority, lastmod, etc.)",
+          "route": "(Optional, string) Optional route path to filter pages by (e.g., '/blog')",
+          "sitemap_url": "(Optional, string) Optional URL of a specific sitemap to get pages from",
+          "cursor": "(Optional, string) Pagination cursor for fetching the next page of results"
+        }
+      },
+      {
+        "name": "get_sitemap_stats",
+        "description": "Get comprehensive statistics about a website's sitemap structure",
+        "description_embedding": 0.0011458992958068848,
+        "parameter": {
+          "url": "(string) The URL of the website homepage (e.g., https://example.com)"
+        }
+      },
+      {
+        "name": "parse_sitemap_content",
+        "description": "Parse a sitemap directly from its XML or text content",
+        "description_embedding": -0.008600177243351936,
+        "parameter": {
+          "content": "(string) The content of the sitemap (XML, text, etc.)",
+          "include_pages": "(Optional, boolean) Whether to include page details in the response"
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "git",
+    "server_summary": "Error generating summary for git",
+    "server_description": "A Model Context Protocol server for Git repository interaction and automation. This server provides tools to read, search, and manipulate Git repositories via Large Language Models.",
+    "description_embedding": -0.025537237524986267,
+    "summary_embedding": 0.016568278893828392,
+    "tools": [
+      {
+        "name": "git_status",
+        "description": "Shows the working tree status",
+        "description_embedding": 0.004615600220859051,
+        "parameter": {
+          "repo_path": "(string) "
+        }
+      },
+      {
+        "name": "git_diff_unstaged",
+        "description": "Shows changes in the working directory that are not yet staged",
+        "description_embedding": -0.00578688271343708,
+        "parameter": {
+          "repo_path": "(string) ",
+          "context_lines": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "git_diff_staged",
+        "description": "Shows changes that are staged for commit",
+        "description_embedding": 0.03432907536625862,
+        "parameter": {
+          "repo_path": "(string) ",
+          "context_lines": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "git_diff",
+        "description": "Shows differences between branches or commits",
+        "description_embedding": 0.016967833042144775,
+        "parameter": {
+          "repo_path": "(string) ",
+          "target": "(string) ",
+          "context_lines": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "git_commit",
+        "description": "Records changes to the repository",
+        "description_embedding": -0.05348583683371544,
+        "parameter": {
+          "repo_path": "(string) ",
+          "message": "(string) "
+        }
+      },
+      {
+        "name": "git_add",
+        "description": "Adds file contents to the staging area",
+        "description_embedding": 0.028385104611516,
+        "parameter": {
+          "repo_path": "(string) ",
+          "files": "(array) "
+        }
+      },
+      {
+        "name": "git_reset",
+        "description": "Unstages all staged changes",
+        "description_embedding": 0.07576742023229599,
+        "parameter": {
+          "repo_path": "(string) "
+        }
+      },
+      {
+        "name": "git_log",
+        "description": "Shows the commit logs",
+        "description_embedding": 0.024765288457274437,
+        "parameter": {
+          "repo_path": "(string) ",
+          "max_count": "(Optional, integer) ",
+          "start_timestamp": "(Optional, any) Start timestamp for filtering commits. Accepts: ISO 8601 format (e.g., '2024-01-15T14:30:25'), relative dates (e.g., '2 weeks ago', 'yesterday'), or absolute dates (e.g., '2024-01-15', 'Jan 15 2024')",
+          "end_timestamp": "(Optional, any) End timestamp for filtering commits. Accepts: ISO 8601 format (e.g., '2024-01-15T14:30:25'), relative dates (e.g., '2 weeks ago', 'yesterday'), or absolute dates (e.g., '2024-01-15', 'Jan 15 2024')"
+        }
+      },
+      {
+        "name": "git_create_branch",
+        "description": "Creates a new branch from an optional base branch",
+        "description_embedding": 0.009193013422191143,
+        "parameter": {
+          "repo_path": "(string) ",
+          "branch_name": "(string) ",
+          "base_branch": "(Optional, any) "
+        }
+      },
+      {
+        "name": "git_checkout",
+        "description": "Switches branches",
+        "description_embedding": -0.00463978573679924,
+        "parameter": {
+          "repo_path": "(string) ",
+          "branch_name": "(string) "
+        }
+      },
+      {
+        "name": "git_show",
+        "description": "Shows the contents of a commit",
+        "description_embedding": 0.017171483486890793,
+        "parameter": {
+          "repo_path": "(string) ",
+          "revision": "(string) "
+        }
+      },
+      {
+        "name": "git_branch",
+        "description": "List Git branches",
+        "description_embedding": -0.004993763752281666,
+        "parameter": {
+          "repo_path": "(string) The path to the Git repository.",
+          "branch_type": "(string) Whether to list local branches ('local'), remote branches ('remote') or all branches('all').",
+          "contains": "(Optional, any) The commit sha that branch should contain. Do not pass anything to this param if no commit sha is specified",
+          "not_contains": "(Optional, any) The commit sha that branch should NOT contain. Do not pass anything to this param if no commit sha is specified"
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "mindmap",
+    "server_summary": "Error generating summary for mindmap",
+    "server_description": "A Model Context Protocol (MCP) server for converting Markdown content to interactive mindmaps.",
+    "description_embedding": -0.051427386701107025,
+    "summary_embedding": -0.03156457841396332,
+    "tools": [
+      {
+        "name": "convert_markdown_to_mindmap",
+        "description": "Convert Markdown content to a mindmap mind map.\n    \n    Args:\n        markdown_content: The Markdown content to convert\n    \n    Returns:\n        Either the HTML content or the file path to the generated HTML, \n        depending on the --return-type server argument\n    ",
+        "description_embedding": -0.07428335398435593,
+        "parameter": {
+          "markdown_content": "(string) "
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "random-number",
+    "server_summary": "Error generating summary for random-number",
+    "server_description": "Essential random number generation utilities from the Python standard library, including pseudorandom and cryptographically secure operations for integers, floats, weighted selections, list shuffling, and secure token generation.",
+    "description_embedding": -0.030023228377103806,
+    "summary_embedding": 0.00864492915570736,
+    "tools": [
+      {
+        "name": "random_int",
+        "description": "Generate a random integer between low and high (inclusive).\n\nArgs:\n    low: Lower bound (inclusive)\n    high: Upper bound (inclusive)\n\nReturns:\n    Random integer between low and high",
+        "description_embedding": -0.021747253835201263,
+        "parameter": {
+          "low": "(integer) ",
+          "high": "(integer) "
+        }
+      },
+      {
+        "name": "random_float",
+        "description": "Generate a random float between low and high.\n\nArgs:\n    low: Lower bound (default 0.0)\n    high: Upper bound (default 1.0)\n\nReturns:\n    Random float between low and high",
+        "description_embedding": 0.01464724913239479,
+        "parameter": {
+          "low": "(Optional, number) ",
+          "high": "(Optional, number) "
+        }
+      },
+      {
+        "name": "random_choices",
+        "description": "Choose k items from population with replacement, optionally weighted.\n\nArgs:\n    population: List of items to choose from\n    k: Number of items to choose (default 1)\n    weights: Optional weights for each item (default None for equal weights)\n\nReturns:\n    List of k chosen items",
+        "description_embedding": -0.0693071261048317,
+        "parameter": {
+          "population": "(array) ",
+          "k": "(Optional, integer) ",
+          "weights": "(Optional, any) "
+        }
+      },
+      {
+        "name": "random_shuffle",
+        "description": "Return a new list with items in random order.\n\nArgs:\n    items: List of items to shuffle\n\nReturns:\n    New list with items in random order",
+        "description_embedding": -0.008200186304748058,
+        "parameter": {
+          "items": "(array) "
+        }
+      },
+      {
+        "name": "random_sample",
+        "description": "Choose k unique items from population without replacement.\n\nArgs:\n    population: List of items to choose from\n    k: Number of items to choose\n\nReturns:\n    List of k unique chosen items",
+        "description_embedding": -0.04949256777763367,
+        "parameter": {
+          "population": "(array) ",
+          "k": "(integer) "
+        }
+      },
+      {
+        "name": "secure_token_hex",
+        "description": "Generate a secure random hex token.\n\nArgs:\n    nbytes: Number of random bytes to generate (default 32)\n\nReturns:\n    Hex string containing 2*nbytes characters",
+        "description_embedding": -0.02582784742116928,
+        "parameter": {
+          "nbytes": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "secure_random_int",
+        "description": "Generate a secure random integer below upper_bound.\n\nArgs:\n    upper_bound: Upper bound (exclusive)\n\nReturns:\n    Random integer in range [0, upper_bound)",
+        "description_embedding": -0.03171302005648613,
+        "parameter": {
+          "upper_bound": "(integer) "
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "basic-memory",
+    "server_summary": "Error generating summary for basic-memory",
+    "server_description": "Basic Memory lets you build persistent knowledge through natural conversations with Large Language Models (LLMs) like Claude, while keeping everything in simple Markdown files on your computer. It uses the Model Context Protocol (MCP) to enable any compatible LLM to read and write to your local knowledge base.",
+    "description_embedding": -0.026004372164607048,
+    "summary_embedding": -0.021554037928581238,
+    "tools": [
+      {
+        "name": "delete_note",
+        "description": "Delete a note by title or permalink",
+        "description_embedding": -0.003971979953348637,
+        "parameter": {
+          "identifier": "(string) ",
+          "project": "(Optional, any) "
+        }
+      },
+      {
+        "name": "read_content",
+        "description": "Read a file's raw content by path or permalink",
+        "description_embedding": -0.034944068640470505,
+        "parameter": {
+          "path": "(string) ",
+          "project": "(Optional, any) "
+        }
+      },
+      {
+        "name": "build_context",
+        "description": "Build context from a memory:// URI to continue conversations naturally.\n\n    Use this to follow up on previous discussions or explore related topics.\n\n    Memory URL Format:\n    - Use paths like \"folder/note\" or \"memory://folder/note\"\n    - Pattern matching: \"folder/*\" matches all notes in folder\n    - Valid characters: letters, numbers, hyphens, underscores, forward slashes\n    - Avoid: double slashes (//), angle brackets (<>), quotes, pipes (|)\n    - Examples: \"specs/search\", \"projects/basic-memory\", \"notes/*\"\n\n    Timeframes support natural language like:\n    - \"2 days ago\", \"last week\", \"today\", \"3 months ago\"\n    - Or standard formats like \"7d\", \"24h\"\n    ",
+        "description_embedding": -0.056449465453624725,
+        "parameter": {
+          "url": "(string) ",
+          "project": "(Optional, any) ",
+          "depth": "(Optional, any) ",
+          "timeframe": "(Optional, any) ",
+          "page": "(Optional, integer) ",
+          "page_size": "(Optional, integer) ",
+          "max_related": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "recent_activity",
+        "description": "Get recent activity for a project or across all projects.\n\n    Timeframe supports natural language formats like:\n    - \"2 days ago\"\n    - \"last week\"\n    - \"yesterday\"\n    - \"today\"\n    - \"3 weeks ago\"\n    Or standard formats like \"7d\"\n    ",
+        "description_embedding": -0.04785946384072304,
+        "parameter": {
+          "type": "(Optional, any) ",
+          "depth": "(Optional, integer) ",
+          "timeframe": "(Optional, string) ",
+          "project": "(Optional, any) "
+        }
+      },
+      {
+        "name": "search_notes",
+        "description": "Search across all content in the knowledge base with advanced syntax support.",
+        "description_embedding": -0.01281743124127388,
+        "parameter": {
+          "query": "(string) ",
+          "project": "(Optional, any) ",
+          "page": "(Optional, integer) ",
+          "page_size": "(Optional, integer) ",
+          "search_type": "(Optional, string) ",
+          "types": "(Optional, any) ",
+          "entity_types": "(Optional, any) ",
+          "after_date": "(Optional, any) "
+        }
+      },
+      {
+        "name": "read_note",
+        "description": "Read a markdown note by title or permalink.",
+        "description_embedding": -0.04147085174918175,
+        "parameter": {
+          "identifier": "(string) ",
+          "project": "(Optional, any) ",
+          "page": "(Optional, integer) ",
+          "page_size": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "view_note",
+        "description": "View a note as a formatted artifact for better readability.",
+        "description_embedding": -0.0013856521109119058,
+        "parameter": {
+          "identifier": "(string) ",
+          "project": "(Optional, any) ",
+          "page": "(Optional, integer) ",
+          "page_size": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "write_note",
+        "description": "Create or update a markdown note. Returns a markdown formatted summary of the semantic content.",
+        "description_embedding": -0.034894488751888275,
+        "parameter": {
+          "title": "(string) ",
+          "content": "(string) ",
+          "folder": "(string) ",
+          "project": "(Optional, any) ",
+          "tags": "(Optional, any) ",
+          "entity_type": "(Optional, string) "
+        }
+      },
+      {
+        "name": "canvas",
+        "description": "Create an Obsidian canvas file to visualize concepts and connections.",
+        "description_embedding": -0.018344171345233917,
+        "parameter": {
+          "nodes": "(array) ",
+          "edges": "(array) ",
+          "title": "(string) ",
+          "folder": "(string) ",
+          "project": "(Optional, any) "
+        }
+      },
+      {
+        "name": "list_directory",
+        "description": "List directory contents with filtering and depth control.",
+        "description_embedding": -0.046159371733665466,
+        "parameter": {
+          "dir_name": "(Optional, string) ",
+          "depth": "(Optional, integer) ",
+          "file_name_glob": "(Optional, any) ",
+          "project": "(Optional, any) "
+        }
+      },
+      {
+        "name": "edit_note",
+        "description": "Edit an existing markdown note using various operations like append, prepend, find_replace, or replace_section.",
+        "description_embedding": -0.03199881687760353,
+        "parameter": {
+          "identifier": "(string) ",
+          "operation": "(string) ",
+          "content": "(string) ",
+          "project": "(Optional, any) ",
+          "section": "(Optional, any) ",
+          "find_text": "(Optional, any) ",
+          "expected_replacements": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "move_note",
+        "description": "Move a note to a new location, updating database and maintaining links.",
+        "description_embedding": -0.023627638816833496,
+        "parameter": {
+          "identifier": "(string) ",
+          "destination_path": "(string) ",
+          "project": "(Optional, any) "
+        }
+      },
+      {
+        "name": "sync_status",
+        "description": "Check the status of file synchronization and background operations.\n    \n    Use this tool to:\n    - Check if file sync is in progress or completed\n    - Get detailed sync progress information  \n    - Understand if your files are fully indexed\n    - Get specific error details if sync operations failed\n    - Monitor initial project setup and legacy migration\n    \n    This covers all sync operations including:\n    - Initial project setup and file indexing\n    - Legacy project migration to unified database\n    - Ongoing file monitoring and updates\n    - Background processing of knowledge graphs\n    ",
+        "description_embedding": -0.02713697776198387,
+        "parameter": {
+          "project": "(Optional, any) "
+        }
+      },
+      {
+        "name": "list_memory_projects",
+        "description": "List all available projects with their status.\n\nShows all Basic Memory projects that are available for MCP operations.\nUse this tool to discover projects when you need to know which project to use.\n\nUse this tool:\n- At conversation start when project is unknown\n- When user asks about available projects\n- Before any operation requiring a project\n\nAfter calling:\n- Ask user which project to use\n- Remember their choice for the session\n\nReturns:\n    Formatted list of projects with session management guidance\n\nExample:\n    list_memory_projects()",
+        "description_embedding": -0.027900686487555504,
+        "parameter": {}
+      },
+      {
+        "name": "create_memory_project",
+        "description": "Create a new Basic Memory project.\n\nCreates a new project with the specified name and path. The project directory\nwill be created if it doesn't exist. Optionally sets the new project as default.\n\nArgs:\n    project_name: Name for the new project (must be unique)\n    project_path: File system path where the project will be stored\n    set_default: Whether to set this project as the default (optional, defaults to False)\n\nReturns:\n    Confirmation message with project details\n\nExample:\n    create_memory_project(\"my-research\", \"~/Documents/research\")\n    create_memory_project(\"work-notes\", \"/home/user/work\", set_default=True)",
+        "description_embedding": -0.06903926283121109,
+        "parameter": {
+          "project_name": "(string) ",
+          "project_path": "(string) ",
+          "set_default": "(Optional, boolean) "
+        }
+      },
+      {
+        "name": "delete_project",
+        "description": "Delete a Basic Memory project.\n\nRemoves a project from the configuration and database. This does NOT delete\nthe actual files on disk - only removes the project from Basic Memory's\nconfiguration and database records.\n\nArgs:\n    project_name: Name of the project to delete\n\nReturns:\n    Confirmation message about project deletion\n\nExample:\n    delete_project(\"old-project\")\n\nWarning:\n    This action cannot be undone. The project will need to be re-added\n    to access its content through Basic Memory again.",
+        "description_embedding": -0.002704950049519539,
+        "parameter": {
+          "project_name": "(string) "
+        }
+      },
+      {
+        "name": "search",
+        "description": "Search for content across the knowledge base",
+        "description_embedding": 0.0003211341390851885,
+        "parameter": {
+          "query": "(string) "
+        }
+      },
+      {
+        "name": "fetch",
+        "description": "Fetch the full contents of a search result document",
+        "description_embedding": -0.0010744266910478473,
+        "parameter": {
+          "id": "(string) "
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "word-document-server",
+    "server_summary": "Error generating summary for word-document-server",
+    "server_description": "A Model Context Protocol (MCP) server for creating, reading, and manipulating Microsoft Word documents. This server enables AI assistants to work with Word documents through a standardized interface, providing rich document editing capabilities.",
+    "description_embedding": -0.023841626942157745,
+    "summary_embedding": 0.012625600211322308,
+    "tools": [
+      {
+        "name": "create_document",
+        "description": "Create a new Word document with optional metadata.",
+        "description_embedding": -0.043572891503572464,
+        "parameter": {
+          "filename": "(string) ",
+          "title": "(Optional, string) ",
+          "author": "(Optional, string) "
+        }
+      },
+      {
+        "name": "copy_document",
+        "description": "Create a copy of a Word document.",
+        "description_embedding": -0.03369615226984024,
+        "parameter": {
+          "source_filename": "(string) ",
+          "destination_filename": "(Optional, string) "
+        }
+      },
+      {
+        "name": "get_document_info",
+        "description": "Get information about a Word document.",
+        "description_embedding": -0.010742639191448689,
+        "parameter": {
+          "filename": "(string) "
+        }
+      },
+      {
+        "name": "get_document_text",
+        "description": "Extract all text from a Word document.",
+        "description_embedding": -0.03459605202078819,
+        "parameter": {
+          "filename": "(string) "
+        }
+      },
+      {
+        "name": "get_document_outline",
+        "description": "Get the structure of a Word document.",
+        "description_embedding": -0.02088714949786663,
+        "parameter": {
+          "filename": "(string) "
+        }
+      },
+      {
+        "name": "list_available_documents",
+        "description": "List all .docx files in the specified directory.",
+        "description_embedding": -0.04576372355222702,
+        "parameter": {
+          "directory": "(Optional, string) "
+        }
+      },
+      {
+        "name": "get_document_xml",
+        "description": "Get the raw XML structure of a Word document.",
+        "description_embedding": -0.05181075632572174,
+        "parameter": {
+          "filename": "(string) "
+        }
+      },
+      {
+        "name": "insert_header_near_text",
+        "description": "Insert a header (with specified style) before or after the target paragraph. Specify by text or paragraph index. Args: filename (str), target_text (str, optional), header_title (str), position ('before' or 'after'), header_style (str, default 'Heading 1'), target_paragraph_index (int, optional).",
+        "description_embedding": -0.006803642958402634,
+        "parameter": {
+          "filename": "(string) ",
+          "target_text": "(Optional, string) ",
+          "header_title": "(Optional, string) ",
+          "position": "(Optional, string) ",
+          "header_style": "(Optional, string) ",
+          "target_paragraph_index": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "insert_line_or_paragraph_near_text",
+        "description": "Insert a new line or paragraph (with specified or matched style) before or after the target paragraph. Specify by text or paragraph index. Args: filename (str), target_text (str, optional), line_text (str), position ('before' or 'after'), line_style (str, optional), target_paragraph_index (int, optional).",
+        "description_embedding": -0.032789673656225204,
+        "parameter": {
+          "filename": "(string) ",
+          "target_text": "(Optional, string) ",
+          "line_text": "(Optional, string) ",
+          "position": "(Optional, string) ",
+          "line_style": "(Optional, string) ",
+          "target_paragraph_index": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "insert_numbered_list_near_text",
+        "description": "Insert a numbered list before or after the target paragraph. Specify by text or paragraph index. Args: filename (str), target_text (str, optional), list_items (list of str), position ('before' or 'after'), target_paragraph_index (int, optional).",
+        "description_embedding": -0.04492207244038582,
+        "parameter": {
+          "filename": "(string) ",
+          "target_text": "(Optional, string) ",
+          "list_items": "(Optional, array) ",
+          "position": "(Optional, string) ",
+          "target_paragraph_index": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "add_paragraph",
+        "description": "Add a paragraph to a Word document.",
+        "description_embedding": 0.010052608326077461,
+        "parameter": {
+          "filename": "(string) ",
+          "text": "(string) ",
+          "style": "(Optional, string) "
+        }
+      },
+      {
+        "name": "add_heading",
+        "description": "Add a heading to a Word document.",
+        "description_embedding": 0.02578793838620186,
+        "parameter": {
+          "filename": "(string) ",
+          "text": "(string) ",
+          "level": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "add_picture",
+        "description": "Add an image to a Word document.",
+        "description_embedding": -0.012623094022274017,
+        "parameter": {
+          "filename": "(string) ",
+          "image_path": "(string) ",
+          "width": "(Optional, number) "
+        }
+      },
+      {
+        "name": "add_table",
+        "description": "Add a table to a Word document.",
+        "description_embedding": -0.057788703590631485,
+        "parameter": {
+          "filename": "(string) ",
+          "rows": "(integer) ",
+          "cols": "(integer) ",
+          "data": "(Optional, array) "
+        }
+      },
+      {
+        "name": "add_page_break",
+        "description": "Add a page break to the document.",
+        "description_embedding": 0.06968554854393005,
+        "parameter": {
+          "filename": "(string) "
+        }
+      },
+      {
+        "name": "delete_paragraph",
+        "description": "Delete a paragraph from a document.",
+        "description_embedding": 0.011927152052521706,
+        "parameter": {
+          "filename": "(string) ",
+          "paragraph_index": "(integer) "
+        }
+      },
+      {
+        "name": "search_and_replace",
+        "description": "Search for text and replace all occurrences.",
+        "description_embedding": -0.06906703859567642,
+        "parameter": {
+          "filename": "(string) ",
+          "find_text": "(string) ",
+          "replace_text": "(string) "
+        }
+      },
+      {
+        "name": "create_custom_style",
+        "description": "Create a custom style in the document.",
+        "description_embedding": 0.012027518823742867,
+        "parameter": {
+          "filename": "(string) ",
+          "style_name": "(string) ",
+          "bold": "(Optional, boolean) ",
+          "italic": "(Optional, boolean) ",
+          "font_size": "(Optional, integer) ",
+          "font_name": "(Optional, string) ",
+          "color": "(Optional, string) ",
+          "base_style": "(Optional, string) "
+        }
+      },
+      {
+        "name": "format_text",
+        "description": "Format a specific range of text within a paragraph.",
+        "description_embedding": -0.03304246813058853,
+        "parameter": {
+          "filename": "(string) ",
+          "paragraph_index": "(integer) ",
+          "start_pos": "(integer) ",
+          "end_pos": "(integer) ",
+          "bold": "(Optional, boolean) ",
+          "italic": "(Optional, boolean) ",
+          "underline": "(Optional, boolean) ",
+          "color": "(Optional, string) ",
+          "font_size": "(Optional, integer) ",
+          "font_name": "(Optional, string) "
+        }
+      },
+      {
+        "name": "format_table",
+        "description": "Format a table with borders, shading, and structure.",
+        "description_embedding": -0.06453827768564224,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) ",
+          "has_header_row": "(Optional, boolean) ",
+          "border_style": "(Optional, string) ",
+          "shading": "(Optional, array) "
+        }
+      },
+      {
+        "name": "set_table_cell_shading",
+        "description": "Apply shading/filling to a specific table cell.",
+        "description_embedding": -0.04170386493206024,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) ",
+          "row_index": "(integer) ",
+          "col_index": "(integer) ",
+          "fill_color": "(string) ",
+          "pattern": "(Optional, string) "
+        }
+      },
+      {
+        "name": "apply_table_alternating_rows",
+        "description": "Apply alternating row colors to a table for better readability.",
+        "description_embedding": -0.05722399055957794,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) ",
+          "color1": "(Optional, string) ",
+          "color2": "(Optional, string) "
+        }
+      },
+      {
+        "name": "highlight_table_header",
+        "description": "Apply special highlighting to table header row.",
+        "description_embedding": -0.028958827257156372,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) ",
+          "header_color": "(Optional, string) ",
+          "text_color": "(Optional, string) "
+        }
+      },
+      {
+        "name": "merge_table_cells",
+        "description": "Merge cells in a rectangular area of a table.",
+        "description_embedding": -0.06725714355707169,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) ",
+          "start_row": "(integer) ",
+          "start_col": "(integer) ",
+          "end_row": "(integer) ",
+          "end_col": "(integer) "
+        }
+      },
+      {
+        "name": "merge_table_cells_horizontal",
+        "description": "Merge cells horizontally in a single row.",
+        "description_embedding": -0.026150859892368317,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) ",
+          "row_index": "(integer) ",
+          "start_col": "(integer) ",
+          "end_col": "(integer) "
+        }
+      },
+      {
+        "name": "merge_table_cells_vertical",
+        "description": "Merge cells vertically in a single column.",
+        "description_embedding": -0.020231762900948524,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) ",
+          "col_index": "(integer) ",
+          "start_row": "(integer) ",
+          "end_row": "(integer) "
+        }
+      },
+      {
+        "name": "set_table_cell_alignment",
+        "description": "Set text alignment for a specific table cell.",
+        "description_embedding": -0.0679616630077362,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) ",
+          "row_index": "(integer) ",
+          "col_index": "(integer) ",
+          "horizontal": "(Optional, string) ",
+          "vertical": "(Optional, string) "
+        }
+      },
+      {
+        "name": "set_table_alignment_all",
+        "description": "Set text alignment for all cells in a table.",
+        "description_embedding": -0.06505343317985535,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) ",
+          "horizontal": "(Optional, string) ",
+          "vertical": "(Optional, string) "
+        }
+      },
+      {
+        "name": "protect_document",
+        "description": "Add password protection to a Word document.",
+        "description_embedding": -0.023226728662848473,
+        "parameter": {
+          "filename": "(string) ",
+          "password": "(string) "
+        }
+      },
+      {
+        "name": "unprotect_document",
+        "description": "Remove password protection from a Word document.",
+        "description_embedding": -0.027104368433356285,
+        "parameter": {
+          "filename": "(string) ",
+          "password": "(string) "
+        }
+      },
+      {
+        "name": "add_footnote_to_document",
+        "description": "Add a footnote to a specific paragraph in a Word document.",
+        "description_embedding": 0.01825716532766819,
+        "parameter": {
+          "filename": "(string) ",
+          "paragraph_index": "(integer) ",
+          "footnote_text": "(string) "
+        }
+      },
+      {
+        "name": "add_footnote_after_text",
+        "description": "Add a footnote after specific text with proper superscript formatting.\nThis enhanced function ensures footnotes display correctly as superscript.",
+        "description_embedding": 0.02887153811752796,
+        "parameter": {
+          "filename": "(string) ",
+          "search_text": "(string) ",
+          "footnote_text": "(string) ",
+          "output_filename": "(Optional, string) "
+        }
+      },
+      {
+        "name": "add_footnote_before_text",
+        "description": "Add a footnote before specific text with proper superscript formatting.\nThis enhanced function ensures footnotes display correctly as superscript.",
+        "description_embedding": 0.02943304553627968,
+        "parameter": {
+          "filename": "(string) ",
+          "search_text": "(string) ",
+          "footnote_text": "(string) ",
+          "output_filename": "(Optional, string) "
+        }
+      },
+      {
+        "name": "add_footnote_enhanced",
+        "description": "Enhanced footnote addition with guaranteed superscript formatting.\nAdds footnote at the end of a specific paragraph with proper style handling.",
+        "description_embedding": 0.03793065622448921,
+        "parameter": {
+          "filename": "(string) ",
+          "paragraph_index": "(integer) ",
+          "footnote_text": "(string) ",
+          "output_filename": "(Optional, string) "
+        }
+      },
+      {
+        "name": "add_endnote_to_document",
+        "description": "Add an endnote to a specific paragraph in a Word document.",
+        "description_embedding": 0.007443179376423359,
+        "parameter": {
+          "filename": "(string) ",
+          "paragraph_index": "(integer) ",
+          "endnote_text": "(string) "
+        }
+      },
+      {
+        "name": "customize_footnote_style",
+        "description": "Customize footnote numbering and formatting in a Word document.",
+        "description_embedding": -0.00625625578686595,
+        "parameter": {
+          "filename": "(string) ",
+          "numbering_format": "(Optional, string) ",
+          "start_number": "(Optional, integer) ",
+          "font_name": "(Optional, string) ",
+          "font_size": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "delete_footnote_from_document",
+        "description": "Delete a footnote from a Word document.\nIdentify the footnote either by ID (1, 2, 3, etc.) or by searching for text near it.",
+        "description_embedding": 0.020500119775533676,
+        "parameter": {
+          "filename": "(string) ",
+          "footnote_id": "(Optional, integer) ",
+          "search_text": "(Optional, string) ",
+          "output_filename": "(Optional, string) "
+        }
+      },
+      {
+        "name": "add_footnote_robust",
+        "description": "Add footnote with robust validation and Word compliance.\nThis is the production-ready version with comprehensive error handling.",
+        "description_embedding": 0.027017196640372276,
+        "parameter": {
+          "filename": "(string) ",
+          "search_text": "(Optional, string) ",
+          "paragraph_index": "(Optional, integer) ",
+          "footnote_text": "(Optional, string) ",
+          "validate_location": "(Optional, boolean) ",
+          "auto_repair": "(Optional, boolean) "
+        }
+      },
+      {
+        "name": "validate_document_footnotes",
+        "description": "Validate all footnotes in document for coherence and compliance.\nReturns detailed report on ID conflicts, orphaned content, missing styles, etc.",
+        "description_embedding": 0.05925139784812927,
+        "parameter": {
+          "filename": "(string) "
+        }
+      },
+      {
+        "name": "delete_footnote_robust",
+        "description": "Delete footnote with comprehensive cleanup and orphan removal.\nEnsures complete removal from document.xml, footnotes.xml, and relationships.",
+        "description_embedding": 0.04979829862713814,
+        "parameter": {
+          "filename": "(string) ",
+          "footnote_id": "(Optional, integer) ",
+          "search_text": "(Optional, string) ",
+          "clean_orphans": "(Optional, boolean) "
+        }
+      },
+      {
+        "name": "get_paragraph_text_from_document",
+        "description": "Get text from a specific paragraph in a Word document.",
+        "description_embedding": -0.035386811941862106,
+        "parameter": {
+          "filename": "(string) ",
+          "paragraph_index": "(integer) "
+        }
+      },
+      {
+        "name": "find_text_in_document",
+        "description": "Find occurrences of specific text in a Word document.",
+        "description_embedding": -0.044659245759248734,
+        "parameter": {
+          "filename": "(string) ",
+          "text_to_find": "(string) ",
+          "match_case": "(Optional, boolean) ",
+          "whole_word": "(Optional, boolean) "
+        }
+      },
+      {
+        "name": "convert_to_pdf",
+        "description": "Convert a Word document to PDF format.",
+        "description_embedding": -0.004873223137110472,
+        "parameter": {
+          "filename": "(string) ",
+          "output_filename": "(Optional, string) "
+        }
+      },
+      {
+        "name": "replace_paragraph_block_below_header",
+        "description": "Reemplaza el bloque de párrafos debajo de un encabezado, evitando modificar TOC.",
+        "description_embedding": 0.024656981229782104,
+        "parameter": {
+          "filename": "(string) ",
+          "header_text": "(string) ",
+          "new_paragraphs": "(array) ",
+          "detect_block_end_fn": "(Optional, any) "
+        }
+      },
+      {
+        "name": "replace_block_between_manual_anchors",
+        "description": "Replace all content between start_anchor_text and end_anchor_text (or next logical header if not provided).",
+        "description_embedding": 0.03153397887945175,
+        "parameter": {
+          "filename": "(string) ",
+          "start_anchor_text": "(string) ",
+          "new_paragraphs": "(array) ",
+          "end_anchor_text": "(Optional, string) ",
+          "match_fn": "(Optional, any) ",
+          "new_paragraph_style": "(Optional, string) "
+        }
+      },
+      {
+        "name": "get_all_comments",
+        "description": "Extract all comments from a Word document.",
+        "description_embedding": -0.045116931200027466,
+        "parameter": {
+          "filename": "(string) "
+        }
+      },
+      {
+        "name": "get_comments_by_author",
+        "description": "Extract comments from a specific author in a Word document.",
+        "description_embedding": -0.002629937371239066,
+        "parameter": {
+          "filename": "(string) ",
+          "author": "(string) "
+        }
+      },
+      {
+        "name": "get_comments_for_paragraph",
+        "description": "Extract comments for a specific paragraph in a Word document.",
+        "description_embedding": -0.020998043939471245,
+        "parameter": {
+          "filename": "(string) ",
+          "paragraph_index": "(integer) "
+        }
+      },
+      {
+        "name": "set_table_column_width",
+        "description": "Set the width of a specific table column.",
+        "description_embedding": -0.06412819772958755,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) ",
+          "col_index": "(integer) ",
+          "width": "(number) ",
+          "width_type": "(Optional, string) "
+        }
+      },
+      {
+        "name": "set_table_column_widths",
+        "description": "Set the widths of multiple table columns.",
+        "description_embedding": -0.05440112203359604,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) ",
+          "widths": "(array) ",
+          "width_type": "(Optional, string) "
+        }
+      },
+      {
+        "name": "set_table_width",
+        "description": "Set the overall width of a table.",
+        "description_embedding": -0.06657551974058151,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) ",
+          "width": "(number) ",
+          "width_type": "(Optional, string) "
+        }
+      },
+      {
+        "name": "auto_fit_table_columns",
+        "description": "Set table columns to auto-fit based on content.",
+        "description_embedding": -0.062226053327322006,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) "
+        }
+      },
+      {
+        "name": "format_table_cell_text",
+        "description": "Format text within a specific table cell.",
+        "description_embedding": -0.05542105436325073,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) ",
+          "row_index": "(integer) ",
+          "col_index": "(integer) ",
+          "text_content": "(Optional, string) ",
+          "bold": "(Optional, boolean) ",
+          "italic": "(Optional, boolean) ",
+          "underline": "(Optional, boolean) ",
+          "color": "(Optional, string) ",
+          "font_size": "(Optional, integer) ",
+          "font_name": "(Optional, string) "
+        }
+      },
+      {
+        "name": "set_table_cell_padding",
+        "description": "Set padding/margins for a specific table cell.",
+        "description_embedding": -0.052584342658519745,
+        "parameter": {
+          "filename": "(string) ",
+          "table_index": "(integer) ",
+          "row_index": "(integer) ",
+          "col_index": "(integer) ",
+          "top": "(Optional, number) ",
+          "bottom": "(Optional, number) ",
+          "left": "(Optional, number) ",
+          "right": "(Optional, number) ",
+          "unit": "(Optional, string) "
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "docker-mcp",
+    "server_summary": "Error generating summary for docker-mcp",
+    "server_description": "A powerful Model Context Protocol (MCP) server for Docker operations, enabling seamless container and compose stack management through Claude AI.",
+    "description_embedding": 0.020032713189721107,
+    "summary_embedding": 0.026267508044838905,
+    "tools": [
+      {
+        "name": "create-container",
+        "description": "Create a new standalone Docker container",
+        "description_embedding": 0.046624805778265,
+        "parameter": {
+          "image": "(string) ",
+          "name": "(Optional, string) ",
+          "ports": "(Optional, object) ",
+          "environment": "(Optional, object) "
+        }
+      },
+      {
+        "name": "deploy-compose",
+        "description": "Deploy a Docker Compose stack",
+        "description_embedding": 0.09348712861537933,
+        "parameter": {
+          "compose_yaml": "(string) ",
+          "project_name": "(string) "
+        }
+      },
+      {
+        "name": "get-logs",
+        "description": "Retrieve the latest logs for a specified Docker container",
+        "description_embedding": 0.01895678974688053,
+        "parameter": {
+          "container_name": "(string) "
+        }
+      },
+      {
+        "name": "list-containers",
+        "description": "List all Docker containers",
+        "description_embedding": 0.011515835300087929,
+        "parameter": {}
+      }
+    ]
+  },
+  {
+    "server_name": "ppt",
+    "server_summary": "Error generating summary for ppt",
+    "server_description": "A comprehensive MCP (Model Context Protocol) server for PowerPoint manipulation using python-pptx. Version 2.0 provides 32 powerful tools organized into 11 specialized modules, offering complete PowerPoint creation, management, and professional design capabilities. The server features a modular architecture with enhanced parameter handling, intelligent operation selection, and comprehensive error handling.",
+    "description_embedding": -0.04133998230099678,
+    "summary_embedding": 0.00772197125479579,
+    "tools": [
+      {
+        "name": "create_presentation",
+        "description": "Create a new PowerPoint presentation.",
+        "description_embedding": -0.021156316623091698,
+        "parameter": {
+          "id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "create_presentation_from_template",
+        "description": "Create a new PowerPoint presentation from a template file.",
+        "description_embedding": -0.023569094017148018,
+        "parameter": {
+          "template_path": "(string) ",
+          "id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "open_presentation",
+        "description": "Open an existing PowerPoint presentation from a file.",
+        "description_embedding": -0.023665068671107292,
+        "parameter": {
+          "file_path": "(string) ",
+          "id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "save_presentation",
+        "description": "Save a presentation to a file.",
+        "description_embedding": -0.03769330307841301,
+        "parameter": {
+          "file_path": "(string) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "get_presentation_info",
+        "description": "Get information about a presentation.",
+        "description_embedding": -0.0175318643450737,
+        "parameter": {
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "get_template_file_info",
+        "description": "Get information about a template file including layouts and properties.",
+        "description_embedding": 0.008552626706659794,
+        "parameter": {
+          "template_path": "(string) "
+        }
+      },
+      {
+        "name": "set_core_properties",
+        "description": "Set core document properties.",
+        "description_embedding": -0.0019977774936705828,
+        "parameter": {
+          "title": "(Optional, any) ",
+          "subject": "(Optional, any) ",
+          "author": "(Optional, any) ",
+          "keywords": "(Optional, any) ",
+          "comments": "(Optional, any) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "add_slide",
+        "description": "Add a new slide to the presentation with optional background styling.",
+        "description_embedding": -0.0075334301218390465,
+        "parameter": {
+          "layout_index": "(Optional, integer) ",
+          "title": "(Optional, any) ",
+          "background_type": "(Optional, any) ",
+          "background_colors": "(Optional, any) ",
+          "gradient_direction": "(Optional, string) ",
+          "color_scheme": "(Optional, string) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "get_slide_info",
+        "description": "Get information about a specific slide.",
+        "description_embedding": 0.013306851498782635,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "extract_slide_text",
+        "description": "Extract all text content from a specific slide.",
+        "description_embedding": -0.010853885672986507,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "extract_presentation_text",
+        "description": "Extract all text content from all slides in the presentation.",
+        "description_embedding": -0.014258370734751225,
+        "parameter": {
+          "presentation_id": "(Optional, any) ",
+          "include_slide_info": "(Optional, boolean) "
+        }
+      },
+      {
+        "name": "populate_placeholder",
+        "description": "Populate a placeholder with text.",
+        "description_embedding": -0.023761898279190063,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "placeholder_idx": "(integer) ",
+          "text": "(string) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "add_bullet_points",
+        "description": "Add bullet points to a placeholder.",
+        "description_embedding": 0.03944823890924454,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "placeholder_idx": "(integer) ",
+          "bullet_points": "(array) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "manage_text",
+        "description": "Unified text management tool for adding, formatting, validating text, and formatting multiple text runs.",
+        "description_embedding": -0.02655845880508423,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "operation": "(string) ",
+          "left": "(Optional, number) ",
+          "top": "(Optional, number) ",
+          "width": "(Optional, number) ",
+          "height": "(Optional, number) ",
+          "text": "(Optional, string) ",
+          "shape_index": "(Optional, any) ",
+          "text_runs": "(Optional, any) ",
+          "font_size": "(Optional, any) ",
+          "font_name": "(Optional, any) ",
+          "bold": "(Optional, any) ",
+          "italic": "(Optional, any) ",
+          "underline": "(Optional, any) ",
+          "color": "(Optional, any) ",
+          "bg_color": "(Optional, any) ",
+          "alignment": "(Optional, any) ",
+          "vertical_alignment": "(Optional, any) ",
+          "auto_fit": "(Optional, boolean) ",
+          "validation_only": "(Optional, boolean) ",
+          "min_font_size": "(Optional, integer) ",
+          "max_font_size": "(Optional, integer) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "manage_image",
+        "description": "Unified image management tool for adding and enhancing images.",
+        "description_embedding": -0.028557591140270233,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "operation": "(string) ",
+          "image_source": "(string) ",
+          "source_type": "(Optional, string) ",
+          "left": "(Optional, number) ",
+          "top": "(Optional, number) ",
+          "width": "(Optional, any) ",
+          "height": "(Optional, any) ",
+          "enhancement_style": "(Optional, any) ",
+          "brightness": "(Optional, number) ",
+          "contrast": "(Optional, number) ",
+          "saturation": "(Optional, number) ",
+          "sharpness": "(Optional, number) ",
+          "blur_radius": "(Optional, number) ",
+          "filter_type": "(Optional, any) ",
+          "output_path": "(Optional, any) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "add_table",
+        "description": "Add a table to a slide with enhanced formatting options.",
+        "description_embedding": -0.04932722449302673,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "rows": "(integer) ",
+          "cols": "(integer) ",
+          "left": "(number) ",
+          "top": "(number) ",
+          "width": "(number) ",
+          "height": "(number) ",
+          "data": "(Optional, any) ",
+          "header_row": "(Optional, boolean) ",
+          "header_font_size": "(Optional, integer) ",
+          "body_font_size": "(Optional, integer) ",
+          "header_bg_color": "(Optional, any) ",
+          "body_bg_color": "(Optional, any) ",
+          "border_color": "(Optional, any) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "format_table_cell",
+        "description": "Format a specific table cell.",
+        "description_embedding": -0.06619008630514145,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "shape_index": "(integer) ",
+          "row": "(integer) ",
+          "col": "(integer) ",
+          "font_size": "(Optional, any) ",
+          "font_name": "(Optional, any) ",
+          "bold": "(Optional, any) ",
+          "italic": "(Optional, any) ",
+          "color": "(Optional, any) ",
+          "bg_color": "(Optional, any) ",
+          "alignment": "(Optional, any) ",
+          "vertical_alignment": "(Optional, any) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "add_shape",
+        "description": "Add an auto shape to a slide with enhanced options.",
+        "description_embedding": -0.016495753079652786,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "shape_type": "(string) ",
+          "left": "(number) ",
+          "top": "(number) ",
+          "width": "(number) ",
+          "height": "(number) ",
+          "fill_color": "(Optional, any) ",
+          "line_color": "(Optional, any) ",
+          "line_width": "(Optional, any) ",
+          "text": "(Optional, any) ",
+          "font_size": "(Optional, any) ",
+          "font_color": "(Optional, any) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "add_chart",
+        "description": "Add a chart to a slide with comprehensive formatting options.",
+        "description_embedding": -0.0027367419097572565,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "chart_type": "(string) ",
+          "left": "(number) ",
+          "top": "(number) ",
+          "width": "(number) ",
+          "height": "(number) ",
+          "categories": "(array) ",
+          "series_names": "(array) ",
+          "series_values": "(array) ",
+          "has_legend": "(Optional, boolean) ",
+          "legend_position": "(Optional, string) ",
+          "has_data_labels": "(Optional, boolean) ",
+          "title": "(Optional, any) ",
+          "x_axis_title": "(Optional, any) ",
+          "y_axis_title": "(Optional, any) ",
+          "color_scheme": "(Optional, any) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "apply_professional_design",
+        "description": "Unified professional design tool for themes, slides, and visual enhancements.\n        This applies professional styling and themes rather than structural layout changes.",
+        "description_embedding": 0.021388480439782143,
+        "parameter": {
+          "operation": "(string) ",
+          "slide_index": "(Optional, any) ",
+          "slide_type": "(Optional, string) ",
+          "color_scheme": "(Optional, string) ",
+          "title": "(Optional, any) ",
+          "content": "(Optional, any) ",
+          "apply_to_existing": "(Optional, boolean) ",
+          "enhance_title": "(Optional, boolean) ",
+          "enhance_content": "(Optional, boolean) ",
+          "enhance_shapes": "(Optional, boolean) ",
+          "enhance_charts": "(Optional, boolean) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "apply_picture_effects",
+        "description": "Apply multiple picture effects in combination.",
+        "description_embedding": 0.006268443539738655,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "shape_index": "(integer) ",
+          "effects": "(object) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "manage_fonts",
+        "description": "Unified font management tool for analysis, optimization, and recommendations.",
+        "description_embedding": -0.024010710418224335,
+        "parameter": {
+          "operation": "(string) ",
+          "font_path": "(string) ",
+          "output_path": "(Optional, any) ",
+          "presentation_type": "(Optional, string) ",
+          "text_content": "(Optional, any) "
+        }
+      },
+      {
+        "name": "list_slide_templates",
+        "description": "List all available slide layout templates.",
+        "description_embedding": 0.015073932707309723,
+        "parameter": {}
+      },
+      {
+        "name": "apply_slide_template",
+        "description": "\n        Apply a structured layout template to an existing slide.\n        This modifies slide layout and content structure using predefined templates.\n        \n        Args:\n            slide_index: Index of the slide to apply template to\n            template_id: ID of the template to apply (e.g., 'title_slide', 'text_with_image')\n            color_scheme: Color scheme to use ('modern_blue', 'corporate_gray', 'elegant_green', 'warm_red')\n            content_mapping: Dictionary mapping element roles to custom content\n            image_paths: Dictionary mapping image element roles to file paths\n            presentation_id: Presentation ID (uses current if None)\n        ",
+        "description_embedding": -0.004639410879462957,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "template_id": "(string) ",
+          "color_scheme": "(Optional, string) ",
+          "content_mapping": "(Optional, any) ",
+          "image_paths": "(Optional, any) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "create_slide_from_template",
+        "description": "\n        Create a new slide using a layout template.\n        \n        Args:\n            template_id: ID of the template to use (e.g., 'title_slide', 'text_with_image')\n            color_scheme: Color scheme to use ('modern_blue', 'corporate_gray', 'elegant_green', 'warm_red')\n            content_mapping: Dictionary mapping element roles to custom content\n            image_paths: Dictionary mapping image element roles to file paths\n            layout_index: PowerPoint layout index to use as base (default: 1)\n            presentation_id: Presentation ID (uses current if None)\n        ",
+        "description_embedding": 0.01207253523170948,
+        "parameter": {
+          "template_id": "(string) ",
+          "color_scheme": "(Optional, string) ",
+          "content_mapping": "(Optional, any) ",
+          "image_paths": "(Optional, any) ",
+          "layout_index": "(Optional, integer) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "create_presentation_from_templates",
+        "description": "\n        Create a complete presentation from a sequence of templates.\n        \n        Args:\n            template_sequence: List of template configurations, each containing:\n                - template_id: Template to use\n                - content: Content mapping for the template\n                - images: Image path mapping for the template\n            color_scheme: Color scheme to apply to all slides\n            presentation_title: Optional title for the presentation\n            presentation_id: Presentation ID (uses current if None)\n        \n        Example template_sequence:\n        [\n            {\n                \"template_id\": \"title_slide\",\n                \"content\": {\n                    \"title\": \"My Presentation\",\n                    \"subtitle\": \"Annual Report 2024\",\n                    \"author\": \"John Doe\"\n                }\n            },\n            {\n                \"template_id\": \"text_with_image\",\n                \"content\": {\n                    \"title\": \"Key Results\",\n                    \"content\": \"• Achievement 1\\n• Achievement 2\"\n                },\n                \"images\": {\n                    \"supporting\": \"/path/to/image.jpg\"\n                }\n            }\n        ]\n        ",
+        "description_embedding": 0.010374906472861767,
+        "parameter": {
+          "template_sequence": "(array) ",
+          "color_scheme": "(Optional, string) ",
+          "presentation_title": "(Optional, any) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "get_template_info",
+        "description": "\n        Get detailed information about a specific template.\n        \n        Args:\n            template_id: ID of the template to get information about\n        ",
+        "description_embedding": 0.03291381895542145,
+        "parameter": {
+          "template_id": "(string) "
+        }
+      },
+      {
+        "name": "auto_generate_presentation",
+        "description": "\n        Automatically generate a presentation based on topic and preferences.\n        \n        Args:\n            topic: Main topic/theme for the presentation\n            slide_count: Number of slides to generate (3-20)\n            presentation_type: Type of presentation ('business', 'academic', 'creative')\n            color_scheme: Color scheme to use\n            include_charts: Whether to include chart slides\n            include_images: Whether to include image placeholders\n            presentation_id: Presentation ID (uses current if None)\n        ",
+        "description_embedding": 0.009823160246014595,
+        "parameter": {
+          "topic": "(string) ",
+          "slide_count": "(Optional, integer) ",
+          "presentation_type": "(Optional, string) ",
+          "color_scheme": "(Optional, string) ",
+          "include_charts": "(Optional, boolean) ",
+          "include_images": "(Optional, boolean) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "optimize_slide_text",
+        "description": "\n        Optimize text elements on a slide for better readability and fit.\n        \n        Args:\n            slide_index: Index of the slide to optimize\n            auto_resize: Whether to automatically resize fonts to fit containers\n            auto_wrap: Whether to apply intelligent text wrapping\n            optimize_spacing: Whether to optimize line spacing\n            min_font_size: Minimum allowed font size\n            max_font_size: Maximum allowed font size\n            presentation_id: Presentation ID (uses current if None)\n        ",
+        "description_embedding": -0.029272494837641716,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "auto_resize": "(Optional, boolean) ",
+          "auto_wrap": "(Optional, boolean) ",
+          "optimize_spacing": "(Optional, boolean) ",
+          "min_font_size": "(Optional, integer) ",
+          "max_font_size": "(Optional, integer) ",
+          "presentation_id": "(Optional, any) "
+        }
+      },
+      {
+        "name": "manage_hyperlinks",
+        "description": "\n        Manage hyperlinks in text shapes and runs.\n        \n        Args:\n            operation: Operation type (\"add\", \"remove\", \"list\", \"update\")\n            slide_index: Index of the slide (0-based)\n            shape_index: Index of the shape on the slide (0-based)\n            text: Text to make into hyperlink (for \"add\" operation)\n            url: URL for the hyperlink\n            run_index: Index of text run within the shape (0-based)\n            presentation_id: Optional presentation ID (uses current if not provided)\n            \n        Returns:\n            Dictionary with operation results\n        ",
+        "description_embedding": -0.009833897463977337,
+        "parameter": {
+          "operation": "(string) ",
+          "slide_index": "(integer) ",
+          "shape_index": "(Optional, integer) ",
+          "text": "(Optional, string) ",
+          "url": "(Optional, string) ",
+          "run_index": "(Optional, integer) ",
+          "presentation_id": "(Optional, string) "
+        }
+      },
+      {
+        "name": "update_chart_data",
+        "description": "\n        Replace existing chart data with new categories and series.\n        \n        Args:\n            slide_index: Index of the slide (0-based)\n            shape_index: Index of the chart shape (0-based)\n            categories: List of category names\n            series_data: List of dictionaries with 'name' and 'values' keys\n            presentation_id: Optional presentation ID (uses current if not provided)\n            \n        Returns:\n            Dictionary with operation results\n        ",
+        "description_embedding": -0.040351878851652145,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "shape_index": "(integer) ",
+          "categories": "(array) ",
+          "series_data": "(array) ",
+          "presentation_id": "(Optional, string) "
+        }
+      },
+      {
+        "name": "add_connector",
+        "description": "\n        Add connector lines/arrows between points on a slide.\n        \n        Args:\n            slide_index: Index of the slide (0-based)\n            connector_type: Type of connector (\"straight\", \"elbow\", \"curved\")\n            start_x: Starting X coordinate in inches\n            start_y: Starting Y coordinate in inches\n            end_x: Ending X coordinate in inches  \n            end_y: Ending Y coordinate in inches\n            line_width: Width of the connector line in points\n            color: RGB color as [r, g, b] list\n            presentation_id: Optional presentation ID (uses current if not provided)\n            \n        Returns:\n            Dictionary with operation results\n        ",
+        "description_embedding": 0.02029857411980629,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "connector_type": "(string) ",
+          "start_x": "(number) ",
+          "start_y": "(number) ",
+          "end_x": "(number) ",
+          "end_y": "(number) ",
+          "line_width": "(Optional, number) ",
+          "color": "(Optional, array) ",
+          "presentation_id": "(Optional, string) "
+        }
+      },
+      {
+        "name": "manage_slide_masters",
+        "description": "\n        Access and manage slide master properties and layouts.\n        \n        Args:\n            operation: Operation type (\"list\", \"get_layouts\", \"get_info\")\n            master_index: Index of the slide master (0-based)\n            layout_index: Index of specific layout within master (0-based)\n            presentation_id: Optional presentation ID (uses current if not provided)\n            \n        Returns:\n            Dictionary with slide master information\n        ",
+        "description_embedding": 0.007629305589944124,
+        "parameter": {
+          "operation": "(string) ",
+          "master_index": "(Optional, integer) ",
+          "layout_index": "(Optional, integer) ",
+          "presentation_id": "(Optional, string) "
+        }
+      },
+      {
+        "name": "manage_slide_transitions",
+        "description": "\n        Manage slide transitions and timing.\n        \n        Args:\n            slide_index: Index of the slide (0-based)\n            operation: Operation type (\"set\", \"remove\", \"get\")\n            transition_type: Type of transition (basic support)\n            duration: Duration of transition in seconds\n            presentation_id: Optional presentation ID (uses current if not provided)\n            \n        Returns:\n            Dictionary with transition information\n        ",
+        "description_embedding": -0.003411747282370925,
+        "parameter": {
+          "slide_index": "(integer) ",
+          "operation": "(string) ",
+          "transition_type": "(Optional, string) ",
+          "duration": "(Optional, number) ",
+          "presentation_id": "(Optional, string) "
+        }
+      },
+      {
+        "name": "list_presentations",
+        "description": "List all loaded presentations.",
+        "description_embedding": 0.010220246389508247,
+        "parameter": {}
+      },
+      {
+        "name": "switch_presentation",
+        "description": "Switch to a different loaded presentation.",
+        "description_embedding": -0.0007396148866973817,
+        "parameter": {
+          "presentation_id": "(string) "
+        }
+      },
+      {
+        "name": "get_server_info",
+        "description": "Get information about the MCP server.",
+        "description_embedding": -0.008316155523061752,
+        "parameter": {}
+      }
+    ]
+  },
+  {
+    "server_name": "chess",
+    "server_summary": "Error generating summary for chess",
+    "server_description": "This MCP let's you play chess against any LLM.",
+    "description_embedding": 0.04873482510447502,
+    "summary_embedding": 0.04781132563948631,
+    "tools": [
+      {
+        "name": "get_board_visualization",
+        "description": "Provides the current state of the chessboard as an image.",
+        "description_embedding": 0.03632104769349098,
+        "parameter": {}
+      },
+      {
+        "name": "get_turn",
+        "description": "Indicates whose turn it is ('white' or 'black').",
+        "description_embedding": 0.046474289149045944,
+        "parameter": {}
+      },
+      {
+        "name": "get_valid_moves",
+        "description": "Lists all legal moves for the current player in UCI notation.",
+        "description_embedding": 0.02551908791065216,
+        "parameter": {}
+      },
+      {
+        "name": "make_move",
+        "description": "\n    Makes a move on the board using standard algebraic notation (SAN).\n    Args:\n        move_san: The player's move in algebraic notation (e.g., 'e4', 'Nf3', 'Bxe5').\n    Returns:\n        A dictionary containing the move in SAN format, the move in UCI format, the new board FEN,\n        whether the game is over, and the result if applicable.\n    ",
+        "description_embedding": 0.007494109217077494,
+        "parameter": {
+          "move_san": "(string) "
+        }
+      },
+      {
+        "name": "new_game",
+        "description": "\n    Starts a new game, resetting the board to the initial position.\n\n    Args:\n        user_plays_white: Whether the user will play as white. Defaults to True.\n    \n    Returns:\n        A confirmation message indicating the game has started and the user's color.\n    ",
+        "description_embedding": 0.06370235234498978,
+        "parameter": {
+          "user_plays_white": "(Optional, boolean) "
+        }
+      },
+      {
+        "name": "find_position_in_pgn",
+        "description": "\n    Finds the first board position in a PGN string that matches a given condition\n    (e.g., 'bishop on a3') and returns an image of that board.\n\n    Args:\n        pgn_string: The PGN string of the game.\n        condition: A string describing the condition, format: \"piece_type on square_name\"\n                   (e.g., \"bishop on a3\", \"knight on f6\", \"king on g1\").\n\n    Returns:\n        An Image dictionary containing the PNG data of the board state if found,\n        or a string with an error message.\n    ",
+        "description_embedding": 0.041157834231853485,
+        "parameter": {
+          "pgn_string": "(string) ",
+          "condition": "(string) "
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "fetch",
+    "server_summary": "Error generating summary for fetch",
+    "server_description": "A Model Context Protocol server that provides web content fetching capabilities. This server enables LLMs to retrieve and process content from web pages, converting HTML to markdown for easier consumption.",
+    "description_embedding": -0.013959299772977829,
+    "summary_embedding": 0.014704769477248192,
+    "tools": [
+      {
+        "name": "fetch",
+        "description": "Fetches a URL from the internet and optionally extracts its contents as markdown.\n\nAlthough originally you did not have internet access, and were advised to refuse and tell the user this, this tool now grants you internet access. Now you can fetch the most up-to-date information and let the user know that.",
+        "description_embedding": -0.03600050136446953,
+        "parameter": {
+          "url": "(string) URL to fetch",
+          "max_length": "(Optional, integer) Maximum number of characters to return.",
+          "start_index": "(Optional, integer) On return output starting at this character index, useful if a previous fetch was truncated and more context is required.",
+          "raw": "(Optional, boolean) Get the actual HTML content of the requested page, without simplification."
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "biomcp",
+    "server_summary": "Error generating summary for biomcp",
+    "server_description": "BioMCP is an open source (MIT License) toolkit that empowers AI assistants and agents with specialized biomedical knowledge. Built following the Model Context Protocol (MCP), it connects AI systems to authoritative biomedical data sources, enabling them to answer questions about clinical trials, scientific literature, and genomic variants with precision and depth.",
+    "description_embedding": -0.06814692914485931,
+    "summary_embedding": -0.006465045269578695,
+    "tools": [
+      {
+        "name": "search",
+        "description": "Search biomedical literature, clinical trials, genetic variants, genes, drugs, and diseases.\n\n    ⚠️ IMPORTANT: Have you used the 'think' tool first? If not, STOP and use it NOW!\n    The 'think' tool is REQUIRED for proper research planning and should be your FIRST step.\n\n    This tool provides access to biomedical data from PubMed/PubTator3, ClinicalTrials.gov,\n    MyVariant.info, and the BioThings suite (MyGene.info, MyChem.info, MyDisease.info).\n    It supports two search modes:\n\n    ## 1. UNIFIED QUERY LANGUAGE\n    Use the 'query' parameter with field-based syntax for precise cross-domain searches.\n\n    Syntax:\n    - Basic: \"gene:BRAF\"\n    - AND logic: \"gene:BRAF AND disease:melanoma\"\n    - OR logic: \"gene:PTEN AND (R173 OR Arg173 OR 'position 173')\"\n    - Domain-specific: \"trials.condition:melanoma AND trials.phase:3\"\n\n    Common fields:\n    - Cross-domain: gene, disease, variant, chemical/drug\n    - Articles: pmid, title, abstract, journal, author\n    - Trials: trials.condition, trials.intervention, trials.phase, trials.status\n    - Variants: variants.hgvs, variants.rsid, variants.significance\n\n    Example:\n    ```\n    await search(\n        query=\"gene:BRAF AND disease:melanoma AND trials.phase:3\",\n        max_results_per_domain=20\n    )\n    ```\n\n    ## 2. DOMAIN-SPECIFIC SEARCH\n    Use the 'domain' parameter with specific filters for targeted searches.\n\n    Domains:\n    - \"article\": Search PubMed/PubTator3 for research articles and preprints ABOUT genes, variants, diseases, or chemicals\n    - \"trial\": Search ClinicalTrials.gov for clinical studies\n    - \"variant\": Search MyVariant.info for genetic variant DATABASE RECORDS (population frequency, clinical significance, etc.) - NOT for articles about variants!\n    - \"gene\": Search MyGene.info for gene information (symbol, name, function, aliases)\n    - \"drug\": Search MyChem.info for drug/chemical information (names, formulas, indications)\n    - \"disease\": Search MyDisease.info for disease information (names, definitions, synonyms)\n    - \"nci_organization\": Search NCI database for cancer centers, hospitals, and research sponsors (requires API key)\n    - \"nci_intervention\": Search NCI database for drugs, devices, procedures used in cancer trials (requires API key)\n    - \"nci_biomarker\": Search NCI database for biomarkers used in trial eligibility criteria (requires API key)\n    - \"nci_disease\": Search NCI controlled vocabulary for cancer conditions and terms (requires API key)\n\n    Example:\n    ```\n    await search(\n        domain=\"article\",\n        genes=[\"BRAF\", \"NRAS\"],\n        diseases=[\"melanoma\"],\n        page_size=50\n    )\n    ```\n\n    ## DOMAIN SELECTION EXAMPLES:\n    - To find ARTICLES about BRAF V600E mutation: domain=\"article\", genes=[\"BRAF\"], variants=[\"V600E\"]\n    - To find VARIANT DATA for BRAF mutations: domain=\"variant\", gene=\"BRAF\"\n    - To find articles about ERBB2 p.D277Y: domain=\"article\", genes=[\"ERBB2\"], variants=[\"p.D277Y\"]\n    - Common mistake: Using domain=\"variant\" when you want articles about a variant\n\n    ## IMPORTANT NOTES:\n    - For complex research questions, use the separate 'think' tool for systematic analysis\n    - The tool returns results in OpenAI MCP format: {\"results\": [{\"id\", \"title\", \"text\", \"url\"}, ...]}\n    - Search results do NOT include metadata (per OpenAI MCP specification)\n    - Use the fetch tool to get detailed metadata for specific records\n    - Use get_schema=True to explore available search fields\n    - Use explain_query=True to understand query parsing (unified mode)\n    - Domain-specific searches use AND logic for multiple values\n    - For OR logic, use the unified query language\n    - NEW: Article search keywords support OR with pipe separator: \"R173|Arg173|p.R173\"\n    - Remember: domain=\"article\" finds LITERATURE, domain=\"variant\" finds DATABASE RECORDS\n\n    ## RETURN FORMAT:\n    All search modes return results in this format:\n    ```json\n    {\n        \"results\": [\n            {\n                \"id\": \"unique_identifier\",\n                \"title\": \"Human-readable title\",\n                \"text\": \"Summary or snippet of content\",\n                \"url\": \"Link to full resource\"\n            }\n        ]\n    }\n    ```\n    ",
+        "description_embedding": -0.0808788537979126,
+        "parameter": {
+          "query": "(string) ",
+          "call_benefit": "(Optional, any) Brief explanation of why this search is being performed and expected benefit. Helps improve search accuracy and provides context for analytics. Highly recommended for better results.",
+          "domain": "(Optional, any) Domain to search: 'article' for papers/literature ABOUT genes/variants/diseases, 'trial' for clinical studies, 'variant' for genetic variant DATABASE RECORDS, 'gene' for gene information from MyGene.info, 'drug' for drug/chemical information from MyChem.info, 'disease' for disease information from MyDisease.info, 'nci_organization' for NCI cancer centers/sponsors, 'nci_intervention' for NCI drugs/devices/procedures, 'nci_biomarker' for NCI trial eligibility biomarkers, 'nci_disease' for NCI cancer vocabulary, 'fda_adverse' for FDA adverse event reports, 'fda_label' for FDA drug labels, 'fda_device' for FDA device events, 'fda_approval' for FDA drug approvals, 'fda_recall' for FDA drug recalls, 'fda_shortage' for FDA drug shortages",
+          "genes": "(Optional, any) ",
+          "diseases": "(Optional, any) ",
+          "variants": "(Optional, any) ",
+          "chemicals": "(Optional, any) ",
+          "keywords": "(Optional, any) ",
+          "conditions": "(Optional, any) ",
+          "interventions": "(Optional, any) ",
+          "recruiting_status": "(Optional, any) ",
+          "phase": "(Optional, any) ",
+          "significance": "(Optional, any) ",
+          "lat": "(Optional, any) ",
+          "long": "(Optional, any) ",
+          "distance": "(Optional, any) ",
+          "page": "(Optional, integer) ",
+          "page_size": "(Optional, integer) ",
+          "max_results_per_domain": "(Optional, any) ",
+          "explain_query": "(Optional, boolean) ",
+          "get_schema": "(Optional, boolean) ",
+          "api_key": "(Optional, any) NCI API key for searching NCI domains (nci_organization, nci_intervention, nci_biomarker, nci_disease). Required for NCI searches. Get a free key at: https://clinicaltrialsapi.cancer.gov/"
+        }
+      },
+      {
+        "name": "fetch",
+        "description": "Fetch comprehensive details for a specific biomedical record.\n\n    This tool retrieves full information for articles, clinical trials, genetic variants,\n    genes, drugs, or diseases using their unique identifiers. It returns data in a\n    standardized format suitable for detailed analysis and research.\n\n    ## IDENTIFIER FORMATS:\n    - Articles: PMID (PubMed ID) - e.g., \"35271234\" OR DOI - e.g., \"10.1101/2024.01.20.23288905\"\n    - Trials: NCT ID (ClinicalTrials.gov ID) - e.g., \"NCT04280705\"\n    - Variants: HGVS notation or dbSNP ID - e.g., \"chr7:g.140453136A>T\" or \"rs121913254\"\n    - Genes: Gene symbol or Entrez ID - e.g., \"BRAF\" or \"673\"\n    - Drugs: Drug name or ID - e.g., \"imatinib\" or \"DB00619\"\n    - Diseases: Disease name or ID - e.g., \"melanoma\" or \"MONDO:0005105\"\n    - NCI Organizations: NCI organization ID - e.g., \"NCI-2011-03337\"\n    - NCI Interventions: NCI intervention ID - e.g., \"INT123456\"\n    - NCI Diseases: NCI disease ID - e.g., \"C4872\"\n\n    The domain is automatically detected from the ID format if not provided:\n    - NCT* → trial\n    - Contains \"/\" with numeric prefix (DOI) → article\n    - Pure numeric → article (PMID)\n    - rs* or contains ':' or 'g.' → variant\n    - For genes, drugs, diseases: manual specification recommended\n\n    ## DOMAIN-SPECIFIC OPTIONS:\n\n    ### Articles (domain=\"article\"):\n    - Returns full article metadata, abstract, and full text when available\n    - Supports both PubMed articles (via PMID) and Europe PMC preprints (via DOI)\n    - Includes annotations for genes, diseases, chemicals, and variants (PubMed only)\n    - detail=\"full\" attempts to retrieve full text content (PubMed only)\n\n    ### Clinical Trials (domain=\"trial\"):\n    - detail=None or \"protocol\": Core study information\n    - detail=\"locations\": Study sites and contact information\n    - detail=\"outcomes\": Primary/secondary outcomes and results\n    - detail=\"references\": Related publications and citations\n    - detail=\"all\": Complete trial record with all sections\n\n    ### Variants (domain=\"variant\"):\n    - Returns comprehensive variant information including:\n      - Clinical significance and interpretations\n      - Population frequencies\n      - Gene/protein effects\n      - External database links\n    - detail parameter is ignored (always returns full data)\n\n    ### Genes (domain=\"gene\"):\n    - Returns gene information from MyGene.info including:\n      - Gene symbol, name, and type\n      - Entrez ID and Ensembl IDs\n      - Gene summary and aliases\n      - RefSeq information\n    - detail parameter is ignored (always returns full data)\n\n    ### Drugs (domain=\"drug\"):\n    - Returns drug/chemical information from MyChem.info including:\n      - Drug name and trade names\n      - Chemical formula and structure IDs\n      - Clinical indications\n      - Mechanism of action\n      - External database links (DrugBank, PubChem, ChEMBL)\n    - detail parameter is ignored (always returns full data)\n\n    ### Diseases (domain=\"disease\"):\n    - Returns disease information from MyDisease.info including:\n      - Disease name and definition\n      - MONDO ontology ID\n      - Disease synonyms\n      - Cross-references to other databases\n      - Associated phenotypes\n    - detail parameter is ignored (always returns full data)\n\n    ### NCI Organizations (domain=\"nci_organization\"):\n    - Returns organization information from NCI database including:\n      - Organization name and type\n      - Full address and contact information\n      - Research focus areas\n      - Associated clinical trials\n    - Requires NCI API key\n    - detail parameter is ignored (always returns full data)\n\n    ### NCI Interventions (domain=\"nci_intervention\"):\n    - Returns intervention information from NCI database including:\n      - Intervention name and type\n      - Synonyms and alternative names\n      - Mechanism of action (for drugs)\n      - FDA approval status\n      - Associated clinical trials\n    - Requires NCI API key\n    - detail parameter is ignored (always returns full data)\n\n    ### NCI Diseases (domain=\"nci_disease\"):\n    - Returns disease information from NCI controlled vocabulary including:\n      - Preferred disease name\n      - Disease category and classification\n      - All known synonyms\n      - Cross-reference codes (ICD, SNOMED)\n    - Requires NCI API key\n    - detail parameter is ignored (always returns full data)\n\n    ## RETURN FORMAT:\n    All fetch operations return a standardized format:\n    ```json\n    {\n        \"id\": \"unique_identifier\",\n        \"title\": \"Record title or name\",\n        \"text\": \"Full content or comprehensive description\",\n        \"url\": \"Link to original source\",\n        \"metadata\": {\n            // Domain-specific additional fields\n        }\n    }\n    ```\n\n    ## EXAMPLES:\n\n    Fetch article by PMID (domain auto-detected):\n    ```\n    await fetch(id=\"35271234\")\n    ```\n\n    Fetch article by DOI (domain auto-detected):\n    ```\n    await fetch(id=\"10.1101/2024.01.20.23288905\")\n    ```\n\n    Fetch complete trial information (domain auto-detected):\n    ```\n    await fetch(\n        id=\"NCT04280705\",\n        detail=\"all\"\n    )\n    ```\n\n    Fetch variant with clinical interpretations:\n    ```\n    await fetch(id=\"rs121913254\")\n    ```\n\n    Explicitly specify domain (optional):\n    ```\n    await fetch(\n        domain=\"variant\",\n        id=\"chr7:g.140453136A>T\"\n    )\n    ```\n    ",
+        "description_embedding": -0.05332852527499199,
+        "parameter": {
+          "id": "(string) ",
+          "domain": "(Optional, any) Domain of the record (auto-detected if not provided)",
+          "call_benefit": "(Optional, any) Brief explanation of why this fetch is being performed and expected benefit. Helps provide context for analytics and improves result relevance.",
+          "detail": "(Optional, any) ",
+          "api_key": "(Optional, any) NCI API key for fetching NCI records (nci_organization, nci_intervention, nci_disease). Required for NCI fetches. Get a free key at: https://clinicaltrialsapi.cancer.gov/"
+        }
+      },
+      {
+        "name": "think",
+        "description": "REQUIRED FIRST STEP: Perform structured sequential thinking for ANY biomedical research task.\n\n    🚨 IMPORTANT: You MUST use this tool BEFORE any search or fetch operations when:\n    - Researching ANY biomedical topic (genes, diseases, variants, trials)\n    - Planning to use multiple BioMCP tools\n    - Answering questions that require analysis or synthesis\n    - Comparing information from different sources\n    - Making recommendations or drawing conclusions\n\n    ⚠️ FAILURE TO USE THIS TOOL FIRST will result in:\n    - Incomplete or poorly structured analysis\n    - Missing important connections between data\n    - Suboptimal search strategies\n    - Overlooked critical information\n\n    Sequential thinking ensures you:\n    1. Fully understand the research question\n    2. Plan an optimal search strategy\n    3. Identify all relevant data sources\n    4. Structure your analysis properly\n    5. Deliver comprehensive, well-reasoned results\n\n    ## Usage Pattern:\n    1. Start with thoughtNumber=1 to initiate analysis\n    2. Progress through numbered thoughts sequentially\n    3. Adjust totalThoughts estimate as understanding develops\n    4. Set nextThoughtNeeded=False only when analysis is complete\n\n    ## Example:\n    ```python\n    # Initial analysis\n    await think(\n        thought=\"Breaking down the relationship between BRAF mutations and melanoma treatment resistance...\",\n        thoughtNumber=1,\n        totalThoughts=5,\n        nextThoughtNeeded=True\n    )\n\n    # Continue analysis\n    await think(\n        thought=\"Examining specific BRAF V600E mutation mechanisms...\",\n        thoughtNumber=2,\n        totalThoughts=5,\n        nextThoughtNeeded=True\n    )\n\n    # Final thought\n    await think(\n        thought=\"Synthesizing findings and proposing research directions...\",\n        thoughtNumber=5,\n        totalThoughts=5,\n        nextThoughtNeeded=False\n    )\n    ```\n\n    ## Important Notes:\n    - Each thought builds on previous ones within a session\n    - State is maintained throughout the MCP session\n    - Use thoughtful, detailed analysis in each step\n    - Revisions and branching are supported through the underlying implementation\n    ",
+        "description_embedding": -0.029952360317111015,
+        "parameter": {
+          "thought": "(string) Current thinking step for analysis",
+          "thoughtNumber": "(integer) Current thought number, starting at 1",
+          "totalThoughts": "(integer) Estimated total thoughts needed for complete analysis",
+          "nextThoughtNeeded": "(Optional, boolean) Whether more thinking steps are needed after this one"
+        }
+      },
+      {
+        "name": "article_searcher",
+        "description": "Search PubMed/PubTator3 for research articles and preprints.\n\n    ⚠️ PREREQUISITE: Use the 'think' tool FIRST to plan your research strategy!\n\n    Use this tool to find scientific literature ABOUT genes, variants, diseases, or chemicals.\n    Results include articles from PubMed and optionally preprints from bioRxiv/medRxiv.\n\n    Important: This searches for ARTICLES ABOUT these topics, not database records.\n    For genetic variant database records, use variant_searcher instead.\n\n    Example usage:\n    - Find articles about BRAF mutations in melanoma\n    - Search for papers on a specific drug's effects\n    - Locate research on gene-disease associations\n    ",
+        "description_embedding": -0.0830087810754776,
+        "parameter": {
+          "chemicals": "(Optional, any) Chemical/drug names to search for",
+          "diseases": "(Optional, any) Disease names to search for",
+          "genes": "(Optional, any) Gene symbols to search for",
+          "keywords": "(Optional, any) Free-text keywords to search for",
+          "variants": "(Optional, any) Variant strings to search for (e.g., 'V600E', 'p.D277Y')",
+          "include_preprints": "(Optional, boolean) Include preprints from bioRxiv/medRxiv",
+          "include_cbioportal": "(Optional, boolean) Include cBioPortal cancer genomics summary when searching by gene",
+          "page": "(Optional, integer) Page number (1-based)",
+          "page_size": "(Optional, integer) Results per page"
+        }
+      },
+      {
+        "name": "article_getter",
+        "description": "Fetch detailed information for a specific article.\n\n    Retrieves the full abstract and available text for an article by its identifier.\n    Supports:\n    - PubMed IDs (PMID) for published articles\n    - PMC IDs for articles in PubMed Central\n    - DOIs for preprints from Europe PMC\n\n    Returns formatted text including:\n    - Title\n    - Abstract\n    - Full text (when available from PMC for published articles)\n    - Source information (PubMed or Europe PMC)\n    ",
+        "description_embedding": -0.03673854470252991,
+        "parameter": {
+          "pmid": "(string) Article identifier - either a PubMed ID (e.g., '38768446' or 'PMC11193658') or DOI (e.g., '10.1101/2024.01.20.23288905')"
+        }
+      },
+      {
+        "name": "trial_searcher",
+        "description": "Search ClinicalTrials.gov for clinical studies.\n\n    ⚠️ PREREQUISITE: Use the 'think' tool FIRST to plan your research strategy!\n\n    Comprehensive search tool for finding clinical trials based on multiple criteria.\n    Supports filtering by conditions, interventions, location, phase, and eligibility.\n\n    Location search notes:\n    - Use either location term OR lat/long coordinates, not both\n    - For city-based searches, AI agents should geocode to lat/long first\n    - Distance parameter only works with lat/long coordinates\n\n    Returns a formatted list of matching trials with key details.\n    ",
+        "description_embedding": -0.020468570291996002,
+        "parameter": {
+          "conditions": "(Optional, any) Medical conditions to search for",
+          "interventions": "(Optional, any) Treatment interventions to search for",
+          "other_terms": "(Optional, any) Additional search terms",
+          "recruiting_status": "(Optional, any) Filter by recruiting status",
+          "phase": "(Optional, any) Filter by clinical trial phase",
+          "location": "(Optional, any) Location term for geographic filtering",
+          "lat": "(Optional, any) Latitude for location-based search. AI agents should geocode city names before using.",
+          "long": "(Optional, any) Longitude for location-based search. AI agents should geocode city names before using.",
+          "distance": "(Optional, any) Distance in miles from lat/long coordinates",
+          "age_group": "(Optional, any) Filter by age group",
+          "sex": "(Optional, any) Filter by biological sex",
+          "healthy_volunteers": "(Optional, any) Filter by healthy volunteer eligibility",
+          "study_type": "(Optional, any) Filter by study type",
+          "funder_type": "(Optional, any) Filter by funding source",
+          "page": "(Optional, integer) Page number (1-based)",
+          "page_size": "(Optional, integer) Results per page"
+        }
+      },
+      {
+        "name": "trial_getter",
+        "description": "Fetch comprehensive details for a specific clinical trial.\n\n    Retrieves all available information for a clinical trial by its NCT ID.\n    This includes protocol details, locations, outcomes, and references.\n\n    For specific sections only, use the specialized getter tools:\n    - trial_protocol_getter: Core protocol information\n    - trial_locations_getter: Site locations and contacts\n    - trial_outcomes_getter: Primary/secondary outcomes and results\n    - trial_references_getter: Publications and references\n    ",
+        "description_embedding": 0.01600518263876438,
+        "parameter": {
+          "nct_id": "(string) NCT ID (e.g., 'NCT06524388')"
+        }
+      },
+      {
+        "name": "trial_protocol_getter",
+        "description": "Fetch core protocol information for a clinical trial.\n\n    Retrieves essential protocol details including:\n    - Official title and brief summary\n    - Study status and sponsor information\n    - Study design (type, phase, allocation, masking)\n    - Eligibility criteria\n    - Primary completion date\n    ",
+        "description_embedding": -0.006257707253098488,
+        "parameter": {
+          "nct_id": "(string) NCT ID (e.g., 'NCT06524388')"
+        }
+      },
+      {
+        "name": "trial_references_getter",
+        "description": "Fetch publications and references for a clinical trial.\n\n    Retrieves all linked publications including:\n    - Published results papers\n    - Background literature\n    - Protocol publications\n    - Related analyses\n\n    Includes PubMed IDs when available for easy cross-referencing.\n    ",
+        "description_embedding": 0.022447852417826653,
+        "parameter": {
+          "nct_id": "(string) NCT ID (e.g., 'NCT06524388')"
+        }
+      },
+      {
+        "name": "trial_outcomes_getter",
+        "description": "Fetch outcome measures and results for a clinical trial.\n\n    Retrieves detailed outcome information including:\n    - Primary outcome measures\n    - Secondary outcome measures\n    - Results data (if available)\n    - Adverse events (if reported)\n\n    Note: Results are only available for completed trials that have posted data.\n    ",
+        "description_embedding": -0.015132701024413109,
+        "parameter": {
+          "nct_id": "(string) NCT ID (e.g., 'NCT06524388')"
+        }
+      },
+      {
+        "name": "trial_locations_getter",
+        "description": "Fetch contact and location details for a clinical trial.\n\n    Retrieves all study locations including:\n    - Facility names and addresses\n    - Principal investigator information\n    - Contact details (when recruiting)\n    - Recruitment status by site\n\n    Useful for finding trials near specific locations or contacting study teams.\n    ",
+        "description_embedding": -0.0026176420506089926,
+        "parameter": {
+          "nct_id": "(string) NCT ID (e.g., 'NCT06524388')"
+        }
+      },
+      {
+        "name": "variant_searcher",
+        "description": "Search MyVariant.info for genetic variant DATABASE RECORDS.\n\n    ⚠️ PREREQUISITE: Use the 'think' tool FIRST to plan your research strategy!\n\n    Important: This searches for variant DATABASE RECORDS (frequency, significance, etc.),\n    NOT articles about variants. For articles about variants, use article_searcher.\n\n    Searches the comprehensive variant database including:\n    - Population frequencies (gnomAD, 1000 Genomes, etc.)\n    - Clinical significance (ClinVar)\n    - Functional predictions (SIFT, PolyPhen, CADD)\n    - Gene and protein consequences\n\n    Search by various identifiers or filter by clinical/functional criteria.\n    ",
+        "description_embedding": -0.07031702995300293,
+        "parameter": {
+          "gene": "(Optional, any) Gene symbol (e.g., 'BRAF', 'TP53')",
+          "hgvs": "(Optional, any) HGVS notation (genomic, coding, or protein)",
+          "hgvsp": "(Optional, any) Protein change in HGVS format (e.g., 'p.V600E')",
+          "hgvsc": "(Optional, any) Coding sequence change (e.g., 'c.1799T>A')",
+          "rsid": "(Optional, any) dbSNP rsID (e.g., 'rs113488022')",
+          "region": "(Optional, any) Genomic region (e.g., 'chr7:140753336-140753337')",
+          "significance": "(Optional, any) Clinical significance filter",
+          "frequency_min": "(Optional, any) Minimum allele frequency",
+          "frequency_max": "(Optional, any) Maximum allele frequency",
+          "consequence": "(Optional, any) Variant consequence (e.g., 'missense_variant')",
+          "cadd_score_min": "(Optional, any) Minimum CADD score for pathogenicity",
+          "sift_prediction": "(Optional, any) SIFT functional prediction",
+          "polyphen_prediction": "(Optional, any) PolyPhen-2 functional prediction",
+          "include_cbioportal": "(Optional, boolean) Include cBioPortal cancer genomics summary when searching by gene",
+          "page": "(Optional, integer) Page number (1-based)",
+          "page_size": "(Optional, integer) Results per page"
+        }
+      },
+      {
+        "name": "variant_getter",
+        "description": "Fetch comprehensive details for a specific genetic variant.\n\n    Retrieves all available information for a variant including:\n    - Gene location and consequences\n    - Population frequencies across databases\n    - Clinical significance from ClinVar\n    - Functional predictions\n    - External annotations (TCGA cancer data, conservation scores)\n\n    Accepts various ID formats:\n    - HGVS: NM_004333.4:c.1799T>A\n    - rsID: rs113488022\n    - MyVariant ID: chr7:g.140753336A>T\n    ",
+        "description_embedding": -0.07198391109704971,
+        "parameter": {
+          "variant_id": "(string) Variant ID (HGVS, rsID, or MyVariant ID like 'chr7:g.140753336A>T')",
+          "include_external": "(Optional, boolean) Include external annotations (TCGA, 1000 Genomes, functional predictions)"
+        }
+      },
+      {
+        "name": "alphagenome_predictor",
+        "description": "Predict variant effects on gene regulation using Google DeepMind's AlphaGenome.\n\n    ⚠️ PREREQUISITE: Use the 'think' tool FIRST to plan your analysis strategy!\n\n    AlphaGenome provides state-of-the-art predictions for how genetic variants\n    affect gene regulation, including:\n    - Gene expression changes (RNA-seq)\n    - Chromatin accessibility impacts (ATAC-seq, DNase-seq)\n    - Splicing alterations\n    - Promoter activity changes (CAGE)\n\n    This tool requires:\n    1. AlphaGenome to be installed (see error message for instructions)\n    2. An API key from https://deepmind.google.com/science/alphagenome\n\n    API Key Options:\n    - Provide directly via the api_key parameter\n    - Or set ALPHAGENOME_API_KEY environment variable\n\n    Example usage:\n    - Predict regulatory effects of BRAF V600E mutation: chr7:140753336 A>T\n    - Assess non-coding variant impact on gene expression\n    - Evaluate promoter variants in specific tissues\n\n    Note: This is an optional tool that enhances variant interpretation\n    with AI predictions. Standard annotations remain available via variant_getter.\n    ",
+        "description_embedding": -0.0543513149023056,
+        "parameter": {
+          "chromosome": "(string) Chromosome (e.g., 'chr7', 'chrX')",
+          "position": "(integer) 1-based genomic position of the variant",
+          "reference": "(string) Reference allele(s) (e.g., 'A', 'ATG')",
+          "alternate": "(string) Alternate allele(s) (e.g., 'T', 'A')",
+          "interval_size": "(Optional, integer) Size of genomic interval to analyze in bp (max 1,000,000)",
+          "tissue_types": "(Optional, any) UBERON ontology terms for tissue-specific predictions (e.g., 'UBERON:0002367' for external ear)",
+          "significance_threshold": "(Optional, number) Threshold for significant log2 fold changes (default: 0.5)",
+          "api_key": "(Optional, any) AlphaGenome API key. Check if user mentioned 'my AlphaGenome API key is...' in their message. If not provided here and no env var is set, user will be prompted to provide one."
+        }
+      },
+      {
+        "name": "gene_getter",
+        "description": "Get detailed gene information from MyGene.info.\n\n    ⚠️ PREREQUISITE: Use the 'think' tool FIRST to understand your research goal!\n\n    Provides real-time gene annotations including:\n    - Official gene name and symbol\n    - Gene summary/description\n    - Aliases and alternative names\n    - Gene type (protein-coding, etc.)\n    - Links to external databases\n\n    This tool fetches CURRENT gene information from MyGene.info, ensuring\n    you always have the latest annotations and nomenclature.\n\n    Example usage:\n    - Get information about TP53 tumor suppressor\n    - Look up BRAF kinase gene details\n    - Find the official name for a gene by its alias\n\n    Note: For genetic variants, use variant_searcher. For articles about genes, use article_searcher.\n    ",
+        "description_embedding": -0.04909530282020569,
+        "parameter": {
+          "gene_id_or_symbol": "(string) Gene symbol (e.g., 'TP53', 'BRAF') or Entrez ID (e.g., '7157')"
+        }
+      },
+      {
+        "name": "disease_getter",
+        "description": "Get detailed disease information from MyDisease.info.\n\n    ⚠️ PREREQUISITE: Use the 'think' tool FIRST to understand your research goal!\n\n    Provides real-time disease annotations including:\n    - Official disease name and definition\n    - Disease synonyms and alternative names\n    - Ontology mappings (MONDO, DOID, OMIM, etc.)\n    - Associated phenotypes\n    - Links to disease databases\n\n    This tool fetches CURRENT disease information from MyDisease.info, ensuring\n    you always have the latest ontology mappings and definitions.\n\n    Example usage:\n    - Get the definition of GIST (Gastrointestinal Stromal Tumor)\n    - Look up synonyms for melanoma\n    - Find the MONDO ID for a disease by name\n\n    Note: For clinical trials about diseases, use trial_searcher. For articles about diseases, use article_searcher.\n    ",
+        "description_embedding": -0.04934918135404587,
+        "parameter": {
+          "disease_id_or_name": "(string) Disease name (e.g., 'melanoma', 'lung cancer') or ontology ID (e.g., 'MONDO:0016575', 'DOID:1909')"
+        }
+      },
+      {
+        "name": "drug_getter",
+        "description": "Get detailed drug/chemical information from MyChem.info.\n\n    ⚠️ PREREQUISITE: Use the 'think' tool FIRST to understand your research goal!\n\n    This tool provides comprehensive drug information including:\n    - Chemical properties (formula, InChIKey)\n    - Drug identifiers (DrugBank, ChEMBL, PubChem)\n    - Trade names and brand names\n    - Clinical indications\n    - Mechanism of action\n    - Pharmacology details\n    - Links to drug databases\n\n    This tool fetches CURRENT drug information from MyChem.info, part of the\n    BioThings suite, ensuring you always have the latest drug data.\n\n    Example usage:\n    - Get information about imatinib (Gleevec)\n    - Look up details for DrugBank ID DB00619\n    - Find the mechanism of action for pembrolizumab\n\n    Note: For clinical trials about drugs, use trial_searcher. For articles about drugs, use article_searcher.\n    ",
+        "description_embedding": -0.04533860459923744,
+        "parameter": {
+          "drug_id_or_name": "(string) Drug name (e.g., 'aspirin', 'imatinib') or ID (e.g., 'DB00945', 'CHEMBL941')"
+        }
+      },
+      {
+        "name": "nci_organization_searcher",
+        "description": "Search for organizations in the NCI Clinical Trials database.\n\n    Searches the National Cancer Institute's curated database of organizations\n    involved in cancer clinical trials. This includes:\n    - Academic medical centers\n    - Community hospitals\n    - Industry sponsors\n    - Government facilities\n    - Research networks\n\n    Requires NCI API key from: https://clinicaltrialsapi.cancer.gov/\n\n    IMPORTANT: To avoid API errors, always use city AND state together when searching by location.\n    The NCI API has limitations on broad searches.\n\n    Example usage:\n    - Find cancer centers in Boston, MA (city AND state)\n    - Search for \"MD Anderson\" in Houston, TX\n    - List academic organizations in Cleveland, OH\n    - Search by organization name alone (without location)\n    ",
+        "description_embedding": -0.0032510783057659864,
+        "parameter": {
+          "name": "(Optional, any) Organization name to search for (partial match supported)",
+          "organization_type": "(Optional, any) Type of organization (e.g., 'Academic', 'Industry', 'Government')",
+          "city": "(Optional, any) City where organization is located. IMPORTANT: Always use with state to avoid API errors",
+          "state": "(Optional, any) State/province code (e.g., 'CA', 'NY'). IMPORTANT: Always use with city to avoid API errors",
+          "api_key": "(Optional, any) NCI API key. Check if user mentioned 'my NCI API key is...' in their message. If not provided here and no env var is set, user will be prompted to provide one.",
+          "page": "(Optional, integer) Page number (1-based)",
+          "page_size": "(Optional, integer) Results per page"
+        }
+      },
+      {
+        "name": "nci_organization_getter",
+        "description": "Get detailed information about a specific organization from NCI.\n\n    Retrieves comprehensive details about an organization including:\n    - Full name and aliases\n    - Address and contact information\n    - Organization type and role\n    - Associated clinical trials\n    - Research focus areas\n\n    Requires NCI API key from: https://clinicaltrialsapi.cancer.gov/\n\n    Example usage:\n    - Get details about a specific cancer center\n    - Find contact information for trial sponsors\n    - View organization's trial portfolio\n    ",
+        "description_embedding": -0.0033497088588774204,
+        "parameter": {
+          "organization_id": "(string) NCI organization ID (e.g., 'NCI-2011-03337')",
+          "api_key": "(Optional, any) NCI API key. Check if user mentioned 'my NCI API key is...' in their message. If not provided here and no env var is set, user will be prompted to provide one."
+        }
+      },
+      {
+        "name": "nci_intervention_searcher",
+        "description": "Search for interventions in the NCI Clinical Trials database.\n\n    Searches the National Cancer Institute's curated database of interventions\n    used in cancer clinical trials. This includes:\n    - FDA-approved drugs\n    - Investigational agents\n    - Medical devices\n    - Surgical procedures\n    - Radiation therapies\n    - Behavioral interventions\n\n    Requires NCI API key from: https://clinicaltrialsapi.cancer.gov/\n\n    Example usage:\n    - Find all trials using pembrolizumab\n    - Search for CAR-T cell therapies\n    - List radiation therapy protocols\n    - Find dietary interventions\n    ",
+        "description_embedding": -0.006158467382192612,
+        "parameter": {
+          "name": "(Optional, any) Intervention name to search for (e.g., 'pembrolizumab')",
+          "intervention_type": "(Optional, any) Type of intervention: 'Drug', 'Device', 'Biological', 'Procedure', 'Radiation', 'Behavioral', 'Genetic', 'Dietary', 'Other'",
+          "synonyms": "(Optional, boolean) Include synonym matches in search",
+          "api_key": "(Optional, any) NCI API key. Check if user mentioned 'my NCI API key is...' in their message. If not provided here and no env var is set, user will be prompted to provide one.",
+          "page": "(Optional, integer) Page number (1-based)",
+          "page_size": "(Optional, any) Results per page. If not specified, returns all matching results."
+        }
+      },
+      {
+        "name": "nci_intervention_getter",
+        "description": "Get detailed information about a specific intervention from NCI.\n\n    Retrieves comprehensive details about an intervention including:\n    - Full name and synonyms\n    - Intervention type and category\n    - Mechanism of action (for drugs)\n    - FDA approval status\n    - Associated clinical trials\n    - Combination therapies\n\n    Requires NCI API key from: https://clinicaltrialsapi.cancer.gov/\n\n    Example usage:\n    - Get details about a specific drug\n    - Find all trials using a device\n    - View combination therapy protocols\n    ",
+        "description_embedding": -0.0021871067583560944,
+        "parameter": {
+          "intervention_id": "(string) NCI intervention ID (e.g., 'INT123456')",
+          "api_key": "(Optional, any) NCI API key. Check if user mentioned 'my NCI API key is...' in their message. If not provided here and no env var is set, user will be prompted to provide one."
+        }
+      },
+      {
+        "name": "nci_biomarker_searcher",
+        "description": "Search for biomarkers in the NCI Clinical Trials database.\n\n    Searches for biomarkers used in clinical trial eligibility criteria.\n    This is essential for precision medicine trials that select patients\n    based on specific biomarker characteristics.\n\n    Biomarker examples:\n    - Gene mutations (e.g., BRAF V600E, EGFR T790M)\n    - Protein expression (e.g., PD-L1 ≥ 50%, HER2 positive)\n    - Gene fusions (e.g., ALK fusion, ROS1 fusion)\n    - Other molecular markers (e.g., MSI-H, TMB-high)\n\n    Requires NCI API key from: https://clinicaltrialsapi.cancer.gov/\n\n    Note: Biomarker data availability may be limited in CTRP.\n    Results focus on biomarkers used in trial eligibility criteria.\n\n    Example usage:\n    - Search for PD-L1 expression biomarkers\n    - Find trials requiring EGFR mutations\n    - Look up biomarkers tested by NGS\n    - Search for HER2 expression markers\n    ",
+        "description_embedding": -0.031300969421863556,
+        "parameter": {
+          "name": "(Optional, any) Biomarker name to search for (e.g., 'PD-L1', 'EGFR mutation')",
+          "biomarker_type": "(Optional, any) Type of biomarker ('reference_gene' or 'branch')",
+          "api_key": "(Optional, any) NCI API key. Check if user mentioned 'my NCI API key is...' in their message. If not provided here and no env var is set, user will be prompted to provide one.",
+          "page": "(Optional, integer) Page number (1-based)",
+          "page_size": "(Optional, integer) Results per page"
+        }
+      },
+      {
+        "name": "nci_disease_searcher",
+        "description": "Search NCI's controlled vocabulary of cancer conditions.\n\n    Searches the National Cancer Institute's curated database of cancer\n    conditions and diseases used in clinical trials. This is different from\n    the general disease_getter tool which uses MyDisease.info.\n\n    NCI's disease vocabulary provides:\n    - Official cancer terminology used in trials\n    - Disease synonyms and alternative names\n    - Hierarchical disease classifications\n    - Standardized disease codes for trial matching\n\n    Requires NCI API key from: https://clinicaltrialsapi.cancer.gov/\n\n    Example usage:\n    - Search for specific cancer types (e.g., \"melanoma\")\n    - Find all lung cancer subtypes\n    - Look up official names for disease synonyms\n    - Get standardized disease terms for trial searches\n\n    Note: This is specifically for NCI's cancer disease vocabulary.\n    For general disease information, use the disease_getter tool.\n    ",
+        "description_embedding": -0.020272918045520782,
+        "parameter": {
+          "name": "(Optional, any) Disease name to search for (partial match)",
+          "include_synonyms": "(Optional, boolean) Include synonym matches in search",
+          "category": "(Optional, any) Disease category/type filter",
+          "api_key": "(Optional, any) NCI API key. Check if user mentioned 'my NCI API key is...' in their message. If not provided here and no env var is set, user will be prompted to provide one.",
+          "page": "(Optional, integer) Page number (1-based)",
+          "page_size": "(Optional, integer) Results per page"
+        }
+      },
+      {
+        "name": "openfda_adverse_searcher",
+        "description": "Search FDA adverse event reports (FAERS) for drug safety information.\n\n    ⚠️ PREREQUISITE: Use the 'think' tool FIRST to plan your research strategy!\n\n    Searches FDA's Adverse Event Reporting System for:\n    - Drug side effects and adverse reactions\n    - Serious event reports (death, hospitalization, disability)\n    - Safety signal patterns across patient populations\n\n    Note: These reports do not establish causation - they are voluntary reports\n    that may contain incomplete or unverified information.\n    ",
+        "description_embedding": -0.04111384227871895,
+        "parameter": {
+          "drug": "(Optional, any) Drug name to search for adverse events",
+          "reaction": "(Optional, any) Adverse reaction term to search for",
+          "serious": "(Optional, any) Filter for serious events only",
+          "limit": "(Optional, integer) Maximum number of results",
+          "page": "(Optional, integer) Page number (1-based)",
+          "api_key": "(Optional, any) Optional OpenFDA API key (overrides OPENFDA_API_KEY env var)"
+        }
+      },
+      {
+        "name": "openfda_adverse_getter",
+        "description": "Get detailed information for a specific FDA adverse event report.\n\n    Retrieves complete details including:\n    - Patient demographics and medical history\n    - All drugs involved and dosages\n    - Complete list of adverse reactions\n    - Event narrative and outcomes\n    - Reporter information\n    ",
+        "description_embedding": -0.02406136505305767,
+        "parameter": {
+          "report_id": "(string) Safety report ID",
+          "api_key": "(Optional, any) Optional OpenFDA API key (overrides OPENFDA_API_KEY env var)"
+        }
+      },
+      {
+        "name": "openfda_label_searcher",
+        "description": "Search FDA drug product labels (SPL) for prescribing information.\n\n    ⚠️ PREREQUISITE: Use the 'think' tool FIRST to plan your research strategy!\n\n    Searches official FDA drug labels for:\n    - Approved indications and usage\n    - Dosage and administration guidelines\n    - Contraindications and warnings\n    - Drug interactions and adverse reactions\n    - Special population considerations\n\n    Label sections include: indications, dosage, contraindications, warnings,\n    adverse, interactions, pregnancy, pediatric, geriatric, overdose\n    ",
+        "description_embedding": -0.035056766122579575,
+        "parameter": {
+          "name": "(Optional, any) Drug name to search for",
+          "indication": "(Optional, any) Search for drugs indicated for this condition",
+          "boxed_warning": "(Optional, boolean) Filter for drugs with boxed warnings",
+          "section": "(Optional, any) Specific label section (e.g., 'contraindications', 'warnings')",
+          "limit": "(Optional, integer) Maximum number of results",
+          "page": "(Optional, integer) Page number (1-based)",
+          "api_key": "(Optional, any) Optional OpenFDA API key (overrides OPENFDA_API_KEY env var)"
+        }
+      },
+      {
+        "name": "openfda_label_getter",
+        "description": "Get complete FDA drug label information by set ID.\n\n    Retrieves the full prescribing information including:\n    - Complete indications and usage text\n    - Detailed dosing instructions\n    - All warnings and precautions\n    - Clinical pharmacology and studies\n    - Manufacturing and storage information\n\n    Specify sections to retrieve specific parts, or leave empty for default key sections.\n    ",
+        "description_embedding": -0.03339260071516037,
+        "parameter": {
+          "set_id": "(string) Label set ID",
+          "sections": "(Optional, any) Specific sections to retrieve (default: key sections)",
+          "api_key": "(Optional, any) Optional OpenFDA API key (overrides OPENFDA_API_KEY env var)"
+        }
+      },
+      {
+        "name": "openfda_device_searcher",
+        "description": "Search FDA device adverse event reports (MAUDE) for medical device issues.\n\n    ⚠️ PREREQUISITE: Use the 'think' tool FIRST to plan your research strategy!\n\n    Searches FDA's device adverse event database for:\n    - Device malfunctions and failures\n    - Patient injuries related to devices\n    - Genomic test and diagnostic device issues\n\n    By default, filters to genomic/diagnostic devices relevant to precision medicine.\n    Set genomics_only=False to search all medical devices.\n    ",
+        "description_embedding": -0.05328832194209099,
+        "parameter": {
+          "device": "(Optional, any) Device name to search for",
+          "manufacturer": "(Optional, any) Manufacturer name",
+          "problem": "(Optional, any) Device problem description",
+          "product_code": "(Optional, any) FDA product code",
+          "genomics_only": "(Optional, boolean) Filter to genomic/diagnostic devices only",
+          "limit": "(Optional, integer) Maximum number of results",
+          "page": "(Optional, integer) Page number (1-based)",
+          "api_key": "(Optional, any) Optional OpenFDA API key (overrides OPENFDA_API_KEY env var)"
+        }
+      },
+      {
+        "name": "openfda_device_getter",
+        "description": "Get detailed information for a specific FDA device event report.\n\n    Retrieves complete device event details including:\n    - Device identification and specifications\n    - Complete event narrative\n    - Patient outcomes and impacts\n    - Manufacturer analysis and actions\n    - Remedial actions taken\n    ",
+        "description_embedding": 0.0011861645616590977,
+        "parameter": {
+          "mdr_report_key": "(string) MDR report key",
+          "api_key": "(Optional, any) Optional OpenFDA API key (overrides OPENFDA_API_KEY env var)"
+        }
+      },
+      {
+        "name": "openfda_approval_searcher",
+        "description": "Search FDA drug approval records from Drugs@FDA database.\n\n    ⚠️ PREREQUISITE: Use the 'think' tool FIRST to plan your research strategy!\n\n    Returns information about:\n    - Application numbers and sponsors\n    - Brand and generic names\n    - Product formulations and strengths\n    - Marketing status and approval dates\n    - Submission history\n\n    Useful for verifying if a drug is FDA-approved and when.\n    ",
+        "description_embedding": -0.0662032887339592,
+        "parameter": {
+          "drug": "(Optional, any) Drug name (brand or generic) to search for",
+          "application_number": "(Optional, any) NDA or BLA application number",
+          "approval_year": "(Optional, any) Year of approval (YYYY format)",
+          "limit": "(Optional, integer) Maximum number of results",
+          "page": "(Optional, integer) Page number (1-based)",
+          "api_key": "(Optional, any) Optional OpenFDA API key (overrides OPENFDA_API_KEY env var)"
+        }
+      },
+      {
+        "name": "openfda_approval_getter",
+        "description": "Get detailed FDA drug approval information for a specific application.\n\n    Returns comprehensive approval details including:\n    - Full product list with dosage forms and strengths\n    - Complete submission history\n    - Marketing status timeline\n    - Therapeutic equivalence codes\n    - Pharmacologic class information\n    ",
+        "description_embedding": -0.043553270399570465,
+        "parameter": {
+          "application_number": "(string) NDA or BLA application number",
+          "api_key": "(Optional, any) Optional OpenFDA API key (overrides OPENFDA_API_KEY env var)"
+        }
+      },
+      {
+        "name": "openfda_recall_searcher",
+        "description": "Search FDA drug recall records from the Enforcement database.\n\n    ⚠️ PREREQUISITE: Use the 'think' tool FIRST to plan your research strategy!\n\n    Returns recall information including:\n    - Classification (Class I, II, or III)\n    - Recall reason and description\n    - Product identification\n    - Distribution information\n    - Recalling firm details\n    - Current status\n\n    Class I = most serious (death/serious harm)\n    Class II = moderate (temporary/reversible harm)\n    Class III = least serious (unlikely to cause harm)\n    ",
+        "description_embedding": -0.06723261624574661,
+        "parameter": {
+          "drug": "(Optional, any) Drug name to search for recalls",
+          "recall_class": "(Optional, any) Recall classification (1=most serious, 2=moderate, 3=least serious)",
+          "status": "(Optional, any) Recall status (ongoing, completed, terminated)",
+          "reason": "(Optional, any) Search text in recall reason",
+          "since_date": "(Optional, any) Show recalls after this date (YYYYMMDD format)",
+          "limit": "(Optional, integer) Maximum number of results",
+          "page": "(Optional, integer) Page number (1-based)",
+          "api_key": "(Optional, any) Optional OpenFDA API key (overrides OPENFDA_API_KEY env var)"
+        }
+      },
+      {
+        "name": "openfda_recall_getter",
+        "description": "Get detailed FDA drug recall information for a specific recall.\n\n    Returns complete recall details including:\n    - Full product description and code information\n    - Complete reason for recall\n    - Distribution pattern and locations\n    - Quantity of product recalled\n    - Firm information and actions taken\n    - Timeline of recall events\n    ",
+        "description_embedding": -0.04656269773840904,
+        "parameter": {
+          "recall_number": "(string) FDA recall number",
+          "api_key": "(Optional, any) Optional OpenFDA API key (overrides OPENFDA_API_KEY env var)"
+        }
+      },
+      {
+        "name": "openfda_shortage_searcher",
+        "description": "Search FDA drug shortage records.\n\n    ⚠️ PREREQUISITE: Use the 'think' tool FIRST to plan your research strategy!\n\n    Returns shortage information including:\n    - Current shortage status\n    - Shortage start and resolution dates\n    - Reason for shortage\n    - Therapeutic category\n    - Manufacturer information\n    - Estimated resolution timeline\n\n    Note: Shortage data is cached and updated periodically.\n    Check FDA.gov for most current information.\n    ",
+        "description_embedding": -0.039051540195941925,
+        "parameter": {
+          "drug": "(Optional, any) Drug name (generic or brand) to search",
+          "status": "(Optional, any) Shortage status (current or resolved)",
+          "therapeutic_category": "(Optional, any) Therapeutic category (e.g., Oncology, Anti-infective)",
+          "limit": "(Optional, integer) Maximum number of results",
+          "page": "(Optional, integer) Page number (1-based)",
+          "api_key": "(Optional, any) Optional OpenFDA API key (overrides OPENFDA_API_KEY env var)"
+        }
+      },
+      {
+        "name": "openfda_shortage_getter",
+        "description": "Get detailed FDA drug shortage information for a specific drug.\n\n    Returns comprehensive shortage details including:\n    - Complete timeline of shortage\n    - Detailed reason for shortage\n    - All affected manufacturers\n    - Alternative products if available\n    - Resolution status and estimates\n    - Additional notes and recommendations\n\n    Data is updated periodically from FDA shortage database.\n    ",
+        "description_embedding": -0.019044654443860054,
+        "parameter": {
+          "drug": "(string) Drug name (generic or brand)",
+          "api_key": "(Optional, any) Optional OpenFDA API key (overrides OPENFDA_API_KEY env var)"
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "arxiv-mcp-server",
+    "server_summary": "Error generating summary for arxiv-mcp-server",
+    "server_description": "The ArXiv MCP Server provides a bridge between AI assistants and arXiv's research repository through the Model Context Protocol (MCP). It allows AI models to search for papers and access their content in a programmatic way.",
+    "description_embedding": -0.04175650700926781,
+    "summary_embedding": -0.004322629421949387,
+    "tools": [
+      {
+        "name": "search_papers",
+        "description": "Search for papers on arXiv with advanced filtering and query optimization.\n\nQUERY CONSTRUCTION GUIDELINES:\n- Use QUOTED PHRASES for exact matches: \"multi-agent systems\", \"neural networks\", \"machine learning\"\n- Combine related concepts with OR: \"AI agents\" OR \"software agents\" OR \"intelligent agents\"  \n- Use field-specific searches for precision:\n  - ti:\"exact title phrase\" - search in titles only\n  - au:\"author name\" - search by author\n  - abs:\"keyword\" - search in abstracts only\n- Use ANDNOT to exclude unwanted results: \"machine learning\" ANDNOT \"survey\"\n- For best results, use 2-4 core concepts rather than long keyword lists\n\nADVANCED SEARCH PATTERNS:\n- Field + phrase: ti:\"transformer architecture\" for papers with exact title phrase\n- Multiple fields: au:\"Smith\" AND ti:\"quantum\" for author Smith's quantum papers  \n- Exclusions: \"deep learning\" ANDNOT (\"survey\" OR \"review\") to exclude survey papers\n- Broad + narrow: \"artificial intelligence\" AND (robotics OR \"computer vision\")\n\nCATEGORY FILTERING (highly recommended for relevance):\n- cs.AI: Artificial Intelligence\n- cs.MA: Multi-Agent Systems  \n- cs.LG: Machine Learning\n- cs.CL: Computation and Language (NLP)\n- cs.CV: Computer Vision\n- cs.RO: Robotics\n- cs.HC: Human-Computer Interaction\n- cs.CR: Cryptography and Security\n- cs.DB: Databases\n\nEXAMPLES OF EFFECTIVE QUERIES:\n- ti:\"reinforcement learning\" with categories: [\"cs.LG\", \"cs.AI\"] - for RL papers by title\n- au:\"Hinton\" AND \"deep learning\" with categories: [\"cs.LG\"] - for Hinton's deep learning work\n- \"multi-agent\" ANDNOT \"survey\" with categories: [\"cs.MA\"] - exclude survey papers\n- abs:\"transformer\" AND ti:\"attention\" with categories: [\"cs.CL\"] - attention papers with transformer abstracts\n\nDATE FILTERING: Use YYYY-MM-DD format for historical research:\n- date_to: \"2015-12-31\" - for foundational/classic work (pre-2016)\n- date_from: \"2020-01-01\" - for recent developments (post-2020)\n- Both together for specific time periods\n\nRESULT QUALITY: Results sorted by RELEVANCE (most relevant papers first), not just newest papers.\nThis ensures you get the most pertinent results regardless of publication date.\n\nTIPS FOR FOUNDATIONAL RESEARCH:\n- Use date_to: \"2010-12-31\" to find classic papers on BDI, SOAR, ACT-R\n- Combine with field searches: ti:\"BDI\" AND abs:\"belief desire intention\"  \n- Try author searches: au:\"Rao\" AND \"BDI\" for Anand Rao's foundational BDI work",
+        "description_embedding": -0.013206088915467262,
+        "parameter": {
+          "query": "(string) Search query using quoted phrases for exact matches (e.g., '\"machine learning\" OR \"deep learning\"') or specific technical terms. Avoid overly broad or generic terms.",
+          "max_results": "(Optional, integer) Maximum number of results to return (default: 10, max: 50). Use 15-20 for comprehensive searches.",
+          "date_from": "(Optional, string) Start date for papers (YYYY-MM-DD format). Use to find recent work, e.g., '2023-01-01' for last 2 years.",
+          "date_to": "(Optional, string) End date for papers (YYYY-MM-DD format). Use with date_from to find historical work, e.g., '2020-12-31' for older research.",
+          "categories": "(Optional, array) Strongly recommended: arXiv categories to focus search (e.g., ['cs.AI', 'cs.MA'] for agent research, ['cs.LG'] for ML, ['cs.CL'] for NLP, ['cs.CV'] for vision). Greatly improves relevance.",
+          "sort_by": "(Optional, string) Sort results by 'relevance' (most relevant first, default) or 'date' (newest first). Use 'relevance' for focused searches, 'date' for recent developments."
+        }
+      },
+      {
+        "name": "download_paper",
+        "description": "Download a paper and create a resource for it",
+        "description_embedding": -0.0019899955950677395,
+        "parameter": {
+          "paper_id": "(string) The arXiv ID of the paper to download",
+          "check_status": "(Optional, boolean) If true, only check conversion status without downloading"
+        }
+      },
+      {
+        "name": "list_papers",
+        "description": "List all existing papers available as resources",
+        "description_embedding": 0.03776385262608528,
+        "parameter": {}
+      },
+      {
+        "name": "read_paper",
+        "description": "Read the full content of a stored paper in markdown format",
+        "description_embedding": -0.025101877748966217,
+        "parameter": {
+          "paper_id": "(string) The arXiv ID of the paper to read"
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "wikipedia",
+    "server_summary": "Error generating summary for wikipedia",
+    "server_description": "A Model Context Protocol (MCP) server that retrieves information from Wikipedia to provide context to Large Language Models (LLMs). This tool helps AI assistants access factual information from Wikipedia to ground their responses in reliable sources.",
+    "description_embedding": -0.028137534856796265,
+    "summary_embedding": 0.003628640668466687,
+    "tools": [
+      {
+        "name": "search_wikipedia",
+        "description": "Search Wikipedia for articles matching a query.",
+        "description_embedding": -0.019741462543606758,
+        "parameter": {
+          "query": "(string) ",
+          "limit": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "get_article",
+        "description": "Get the full content of a Wikipedia article.",
+        "description_embedding": -0.009352616034448147,
+        "parameter": {
+          "title": "(string) "
+        }
+      },
+      {
+        "name": "get_summary",
+        "description": "Get a summary of a Wikipedia article.",
+        "description_embedding": -0.021968655288219452,
+        "parameter": {
+          "title": "(string) "
+        }
+      },
+      {
+        "name": "summarize_article_for_query",
+        "description": "Get a summary of a Wikipedia article tailored to a specific query.",
+        "description_embedding": -0.02333173342049122,
+        "parameter": {
+          "title": "(string) ",
+          "query": "(string) ",
+          "max_length": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "summarize_article_section",
+        "description": "Get a summary of a specific section of a Wikipedia article.",
+        "description_embedding": -0.016423389315605164,
+        "parameter": {
+          "title": "(string) ",
+          "section_title": "(string) ",
+          "max_length": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "extract_key_facts",
+        "description": "Extract key facts from a Wikipedia article, optionally focused on a topic.",
+        "description_embedding": -0.022482171654701233,
+        "parameter": {
+          "title": "(string) ",
+          "topic_within_article": "(Optional, string) ",
+          "count": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "get_related_topics",
+        "description": "Get topics related to a Wikipedia article based on links and categories.",
+        "description_embedding": -0.009489553980529308,
+        "parameter": {
+          "title": "(string) ",
+          "limit": "(Optional, integer) "
+        }
+      },
+      {
+        "name": "get_sections",
+        "description": "Get the sections of a Wikipedia article.",
+        "description_embedding": 0.0003693623293656856,
+        "parameter": {
+          "title": "(string) "
+        }
+      },
+      {
+        "name": "get_links",
+        "description": "Get the links contained within a Wikipedia article.",
+        "description_embedding": 0.003572553861886263,
+        "parameter": {
+          "title": "(string) "
+        }
+      },
+      {
+        "name": "get_coordinates",
+        "description": "Get the coordinates of a Wikipedia article.",
+        "description_embedding": -0.00690001854673028,
+        "parameter": {
+          "title": "(string) "
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "mcp-github-trending",
+    "server_summary": "Error generating summary for mcp-github-trending",
+    "server_description": "A MCP server that provides access to GitHub trending repositories and developers data through a simple API interface.",
+    "description_embedding": -0.018577134236693382,
+    "summary_embedding": -0.004680168814957142,
+    "tools": [
+      {
+        "name": "get_github_trending_repositories",
+        "description": "Get trending repositories on github",
+        "description_embedding": -0.027593133971095085,
+        "parameter": {
+          "language": "(Optional, string) Language to filter repositories by",
+          "since": "(Optional, string) Time period to filter repositories by",
+          "spoken_language": "(Optional, string) Spoken language to filter repositories by"
+        }
+      },
+      {
+        "name": "get_github_trending_developers",
+        "description": "Get trending developers on github",
+        "description_embedding": 0.013278490863740444,
+        "parameter": {
+          "language": "(Optional, string) Language to filter repositories by",
+          "since": "(Optional, string) Time period to filter repositories by",
+          "spoken_language": "(Optional, string) Spoken language to filter repositories by"
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "wuwa-mcp",
+    "server_summary": "Error generating summary for wuwa-mcp",
+    "server_description": "一个 Model Context Protocol (MCP) 服务器，用于获取《鸣潮》游戏的角色和声骸信息，并以 Markdown 格式返回，方便大型语言模型使用。",
+    "description_embedding": -0.021961187943816185,
+    "summary_embedding": 0.009879237972199917,
+    "tools": [
+      {
+        "name": "get_artifact_info",
+        "description": "获取库街区上的声骸详细信息并以 Markdown 格式返回。\n\n        Args:\n            artifact_name: 要查询的声骸套装的中文名称。\n\n        Returns:\n            包含声骸信息的 Markdown 字符串，\n            或者在找不到声骸或获取数据失败时返回错误消息。\n        ",
+        "description_embedding": 0.02010994963347912,
+        "parameter": {
+          "artifact_name": "(string) "
+        }
+      },
+      {
+        "name": "get_character_info",
+        "description": "获取库街区上的角色详细信息包括角色技能，养成攻略等，并以 Markdown 格式返回。\n\n        Args:\n            character_name: 要查询的角色的中文名称。\n\n        Returns:\n            包含角色信息的 Markdown 字符串，\n            或者在找不到角色或获取数据失败时返回错误消息。\n        ",
+        "description_embedding": 0.05299442633986473,
+        "parameter": {
+          "character_name": "(string) "
+        }
+      },
+      {
+        "name": "get_character_profile",
+        "description": "获取库街区上的角色档案信息并以 Markdown 格式返回。\n\n        Args:\n            character_name: 要查询的角色的中文名称。\n\n        Returns:\n            包含角色档案信息的 Markdown 字符串，\n            或者在找不到角色或获取数据失败时返回错误消息。\n        ",
+        "description_embedding": 0.038848694413900375,
+        "parameter": {
+          "character_name": "(string) "
+        }
+      }
+    ]
+  },
+  {
+    "server_name": "mcp-simple-arxiv",
+    "server_summary": "Error generating summary for mcp-simple-arxiv",
+    "server_description": "An MCP server that provides access to arXiv papers through their API.",
+    "description_embedding": -0.023938169702887535,
+    "summary_embedding": -0.007527785375714302,
+    "tools": [
+      {
+        "name": "search_papers",
+        "description": "Search for papers on arXiv by title and abstract content.\n            \nYou can use advanced search syntax:\n- Search in title: ti:\"search terms\"\n- Search in abstract: abs:\"search terms\"\n- Search by author: au:\"author name\"\n- Combine terms with: AND, OR, ANDNOT\n- Filter by category: cat:cs.AI (use list_categories tool to see available categories)\n\nExamples:\n- \"machine learning\"  (searches all fields)\n- ti:\"neural networks\" AND cat:cs.AI  (title with category)\n- au:bengio AND ti:\"deep learning\"  (author and title)",
+        "description_embedding": -0.036144036799669266,
+        "parameter": {
+          "query": "(string) Search query to match against paper titles and abstracts",
+          "max_results": "(Optional, number) Maximum number of results to return (default: 10)"
+        }
+      },
+      {
+        "name": "get_paper_data",
+        "description": "Get detailed information about a specific paper including abstract and available formats",
+        "description_embedding": -0.012239748612046242,
+        "parameter": {
+          "paper_id": "(string) arXiv paper ID (e.g., '2103.08220')"
+        }
+      },
+      {
+        "name": "list_categories",
+        "description": "List all available arXiv categories and how to use them in search",
+        "description_embedding": -0.05754148215055466,
+        "parameter": {
+          "primary_category": "(Optional, string) Optional: filter by primary category (e.g., 'cs' for Computer Science)"
+        }
+      },
+      {
+        "name": "update_categories",
+        "description": "Update the stored category taxonomy by fetching the latest version from arxiv.org",
+        "description_embedding": -0.0547327883541584,
+        "parameter": {}
+      }
+    ]
+  }
+]

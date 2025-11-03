@@ -36,13 +36,6 @@
 - High Heterogeneity of Returned Results: Data formats, structures, and information density vary greatly between different tools (could be raw data, HTML snippets, structured JSON, etc.), requiring LLMs to have strong **information extraction, summarization, and integration capabilities**.
 - Tool Dynamicity and Uncertainty: Real-world tools (especially web APIs) may return results that change over time, with input, or due to external state, requiring agents to have **robustness** and **adaptability**.
 
-**Innovative Methodological Solutions**
-
-To address the above problems, the community has explored various methodological approaches:
-
-1.  Declarative Interface: For example, the XiYan MCP Server allows the LLM to express query intent in natural language, while a dedicated model on the server side (e.g., a text-to-SQL model) is responsible for converting natural language into precise structured queries (e.g., SQL statements). This **significantly reduces the burden on the LLM** and improves the accuracy of complex operations.
-2.  Tool Invocation Mode Selection and Optimization: Choose between **Explicit Invocation** (more controllable, suitable for scenarios requiring direct processing of raw data or reusing existing logic) and **Implicit Invocation** (more efficient, suitable for general conversation scenarios where the LLM's automation capability is trusted) based on the application scenario, or adopt compromise solutions like "semi-automatic backfill explicit invocation".
-
 ## Config Introduction
 MCP services need to select the appropriate communication protocol type during registration and configuration based on the actual scenario:
 | Protocol Type | Communication Method | Advantages | Disadvantages | Applicable Scenarios |
@@ -142,3 +135,7 @@ The configuration file differs depending on the deployment method:
 - [Art](https://art.openpipe.ai/getting-started/about)
     - Support mixed calling of mcp servers and tools, by transforming mcp calling into openai function calling format.
 - [Verl](https://github.com/volcengine/verl)
+
+## Fast Evaluation
+We offer the revised version for convenient testing that supports local model evaluation, using vllm and requests to replace the openai wrapper.
+- For LiveMCP, see Readme4LiveMCP.md.

@@ -1,0 +1,43 @@
+DEBUG    2025-11-03 12:30:41 [asyncio] Using selector: EpollSelector
+INFO     2025-11-03 12:30:41 [__main__] len(queries): 95
+INFO     2025-11-03 12:30:41 [__main__] Forwarding env to mcp-copilot: ['CUDA_VISIBLE_DEVICES']
+ERROR    2025-11-03 12:33:41 [utils.mcp_client] Timeout connecting to server mcp-copilot
+ERROR    2025-11-03 12:56:03 [asyncio] an error occurred during closing of asynchronous generator <async_generator object stdio_client at 0x7ff4ad488e00>
+asyncgen: <async_generator object stdio_client at 0x7ff4ad488e00>
+  + Exception Group Traceback (most recent call last):
+  |   File "/ext1/knhdu/ba/Boundary/LiveMCP/.venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 772, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/ext1/knhdu/ba/Boundary/LiveMCP/.venv/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 177, in stdio_client
+    |     yield read_stream, write_stream
+    | GeneratorExit
+    | 
+    | During handling of the above exception, another exception occurred:
+    | 
+    | Traceback (most recent call last):
+    |   File "/ext1/knhdu/ba/Boundary/LiveMCP/.venv/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 183, in stdio_client
+    |     process.terminate()
+    |   File "/ext1/knhdu/ba/Boundary/LiveMCP/.venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1085, in terminate
+    |     self._process.terminate()
+    |   File "/home/knhdu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/asyncio/subprocess.py", line 143, in terminate
+    |     self._transport.terminate()
+    |   File "/home/knhdu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/asyncio/base_subprocess.py", line 149, in terminate
+    |     self._check_proc()
+    |   File "/home/knhdu/.local/share/uv/python/cpython-3.11.13-linux-x86_64-gnu/lib/python3.11/asyncio/base_subprocess.py", line 142, in _check_proc
+    |     raise ProcessLookupError()
+    | ProcessLookupError
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/ext1/knhdu/ba/Boundary/LiveMCP/.venv/lib/python3.11/site-packages/mcp/client/stdio/__init__.py", line 170, in stdio_client
+    async with (
+  File "/ext1/knhdu/ba/Boundary/LiveMCP/.venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 778, in __aexit__
+    if self.cancel_scope.__exit__(type(exc), exc, exc.__traceback__):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/ext1/knhdu/ba/Boundary/LiveMCP/.venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 457, in __exit__
+    raise RuntimeError(
+RuntimeError: Attempted to exit cancel scope in a different task than it was entered in

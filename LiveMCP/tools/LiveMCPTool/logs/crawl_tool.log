@@ -1,0 +1,12 @@
+INFO     2025-11-03 09:46:26 [__main__] Processing 2 servers with max 5 concurrent connections
+ERROR    2025-11-03 09:46:29 [__main__] Error connecting to server opgg-mcp: Unsupported protocol version from the server: 2025-06-18
+ERROR    2025-11-03 09:46:29 [__main__] Error processing server OP.GG MCP Server: Unsupported protocol version from the server: 2025-06-18
+ERROR    2025-11-03 09:46:29 [__main__] Error during cleanup: Attempted to exit cancel scope in a different task than it was entered in
+WARNING  2025-11-03 09:46:29 [__main__] Failed to process server: Crypto Price & Market Analysis MCP Server
+ERROR    2025-11-03 09:49:26 [__main__] Timeout connecting to server mcp-crypto-price
+ERROR    2025-11-03 09:49:26 [__main__] Timeout processing server Crypto Price & Market Analysis MCP Server
+ERROR    2025-11-03 09:49:26 [__main__] Error during cleanup: Attempted to exit cancel scope in a different task than it was entered in
+WARNING  2025-11-03 09:49:26 [__main__] Failed to process server: OP.GG MCP Server
+INFO     2025-11-03 09:49:26 [__main__] Successfully processed servers: 68
+Total visited tools: 68
+
