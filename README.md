@@ -146,5 +146,5 @@ The configuration file differs depending on the deployment method:
 - [Verl](https://github.com/volcengine/verl)
 
 ## Fast Evaluation
-We offer the revised version for convenient testing that supports local model evaluation, using vllm and requests to replace the openai wrapper.
+We offer the revised version of LiveMCP and MCPUniverse for convenient testing that supports local model evaluation, using vllm and requests to replace the openai wrapper.
 - For LiveMCP, see Readme4LiveMCP.md.
