@@ -156,3 +156,5 @@ The configuration file differs depending on the deployment method:
 ## Fast Evaluation for MCP Calling
 We offer the revised version of "LiveMCP" and "MCPUniverse" for convenient testing that supports local model evaluation, using vllm and requests to replace the openai wrapper.
 - For LiveMCP, see Readme4LiveMCP.md.
+
+* If you find this repo useful, please star us.
