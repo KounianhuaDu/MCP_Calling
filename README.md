@@ -133,7 +133,7 @@ The configuration file differs depending on the deployment method:
     - After configuration is complete, check the MCP server status in the client (often indicated by a green light or status indicator).
     - Try triggering the relevant tools in conversation and observe if they can be called normally and return results.
 
-## Collections
+## Server and Dataset Collections
 - Server Collections:
     - [Smithery](https://smithery.ai/)
     - [MCP.so](https://glama.ai/mcp/servers)
