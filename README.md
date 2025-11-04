@@ -6,7 +6,7 @@
 - Core Challenges of MCP Tool Calling
 - Config Introduction
 - Usage Notes
-- Collections
+- Server and Dataset Collections
 - Tuning Factory
 - Fast Evaluation
 
