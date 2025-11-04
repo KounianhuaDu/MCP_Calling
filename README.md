@@ -135,8 +135,15 @@ The configuration file differs depending on the deployment method:
 
 ## Collections
 - Server Collections:
-    - [awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers)
     - [Smithery](https://smithery.ai/)
+    - [MCP.so](https://glama.ai/mcp/servers)
+    - [MCP.ing](https://mcp.ing/)
+    - [AWS MCPs](https://github.com/awslabs/mcp)
+    - [Genai Toolbox](https://googleapis.github.io/genai-toolbox/getting-started/introduction/)
+    - [Microsoft MCPs](https://github.com/microsoft/mcp)
+    - [awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers)
+    - [Awesome-MCP-ZH](https://github.com/yzfly/Awesome-MCP-ZH) 
+
 - Datasets:
     - [TOUCAN: SYNTHESIZING 1.5M TOOL-AGENTIC DATA FROM REAL-WORLD MCP ENVIRONMENTS](https://arxiv.org/pdf/2510.01179)
 
@@ -145,6 +152,7 @@ The configuration file differs depending on the deployment method:
 - [Art](https://art.openpipe.ai/getting-started/about)
 - [Verl](https://github.com/volcengine/verl)
 
-## Fast Evaluation
-We offer the revised version of LiveMCP and MCPUniverse for convenient testing that supports local model evaluation, using vllm and requests to replace the openai wrapper.
+
+## Fast Evaluation for MCP Calling
+We offer the revised version of "LiveMCP" and "MCPUniverse" for convenient testing that supports local model evaluation, using vllm and requests to replace the openai wrapper.
 - For LiveMCP, see Readme4LiveMCP.md.
