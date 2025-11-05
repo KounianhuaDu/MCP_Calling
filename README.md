@@ -158,4 +158,4 @@ We offer the revised version of "LiveMCP" and "MCPUniverse" for convenient testi
 - For LiveMCP, see Readme4LiveMCP.md.
 
 ------------------------
-* If you find this repo useful, please star us.
+If you find this repo useful, please star us.
