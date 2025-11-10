@@ -138,6 +138,7 @@ The configuration file differs depending on the deployment method:
     - [Smithery](https://smithery.ai/)
     - [MCP.so](https://glama.ai/mcp/servers)
     - [MCP.ing](https://mcp.ing/)
+    - [MCP Market](https://mcpmarket.com/)
     - [AWS MCPs](https://github.com/awslabs/mcp)
     - [Genai Toolbox](https://googleapis.github.io/genai-toolbox/getting-started/introduction/)
     - [Microsoft MCPs](https://github.com/microsoft/mcp)
