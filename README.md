@@ -1,5 +1,3 @@
-# RoadMap
-
 ## Contents
 - MCP Benchmark
 - Summary of Methodologies and Evaluation Frameworks
