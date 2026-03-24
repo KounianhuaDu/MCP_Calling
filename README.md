@@ -22,7 +22,7 @@
     - [Art](https://art.openpipe.ai/getting-started/about)
     - [Verl](https://github.com/volcengine/verl)
 - Fast Evaluation for MCP Calling
-    - We offer the revised version of "LiveMCP" and "MCPUniverse" for convenient testing that supports local model evaluation, using vllm and requests to replace the openai wrapper. For LiveMCP, see Readme4LiveMCP.md.
+    - We offer the revised version of "LiveMCP" and "MCPUniverse" for convenient testing that supports local model evaluation, using vllm and requests to replace the openai wrapper. See ([`Inference`](Inference/)).
 - Training data
     - We offer a training data set ([`Training_Data`](Training_Data/)) consisting of 8k+ samples synthesized from gpt-oss-20b using real-world servers, which is filtered from a 20w-samples collection and validated to be useful using a rule-based reward training pipeline.
 
