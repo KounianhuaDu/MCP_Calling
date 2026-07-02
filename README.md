@@ -1,4 +1,4 @@
-## Contents
+## Basic Info
 - MCP Benchmark: See [`MCP_Benchmark`](MCP_Benchmark/)
 - Summary of Methodologies and Evaluation Frameworks: See [`Summary_of_Methodologies_and_Evaluation_Frameworks`](Summary_of_Methodologies_and_Evaluation_Frameworks/)
 - Core Challenges of MCP Tool Calling: See [`Core_Challenges_of_MCP_Tool_Calling`](Core_Challenges_of_MCP_Tool_Calling/)
@@ -21,10 +21,15 @@
     - [RL-Factory](https://github.com/Simple-Efficient/RL-Factory)
     - [Art](https://art.openpipe.ai/getting-started/about)
     - [Verl](https://github.com/volcengine/verl)
+
+## Inference
 - Fast Evaluation for MCP Calling
     - We offer the revised version of "LiveMCP" and "MCPUniverse" for convenient testing that supports local model evaluation, using vllm and requests to replace the openai wrapper. See ([`Inference`](Inference/)).
+
+## Training
 - Training data
     - We offer a training data set ([`Training_Data`](Training_Data/)) consisting of 8k+ samples synthesized from gpt-oss-20b using real-world servers, which is filtered from a 20w-samples collection and validated to be useful using a rule-based reward training pipeline.
-
+- Model weight
+    - https://huggingface.co/KounianhuaDu/MCP_rl
 ------------------------
 If you find this repo useful, please star us.
