@@ -30,6 +30,6 @@
 - Training data
     - We offer a training data set ([`Training_Data`](Training_Data/)) consisting of 8k+ samples synthesized from gpt-oss-20b using real-world servers, which is filtered from a 20w-samples collection and validated to be useful using a rule-based reward training pipeline. You may also refer to the huggingface repo for download: https://huggingface.co/datasets/KounianhuaDu/MCP_train_8k
 - Model weight
-    - https://huggingface.co/KounianhuaDu/MCP_rl
+    - [MCPDisCo](https://huggingface.co/KounianhuaDu/MCPDisCo)
 ------------------------
 If you find this repo useful, please star us.
